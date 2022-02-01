@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/usr/Desktop/FOP_Project/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/main.c.o -c /home/usr/Desktop/FOP_Project/main.c",
+  "file": "/home/usr/Desktop/FOP_Project/main.c"
+}
+]

@@ -1,0 +1,5 @@
+/home/usr/Desktop/FOP_Project/build/CMakeFiles/FOP_Project.dir
+/home/usr/Desktop/FOP_Project/build/CMakeFiles/package.dir
+/home/usr/Desktop/FOP_Project/build/CMakeFiles/package_source.dir
+/home/usr/Desktop/FOP_Project/build/CMakeFiles/edit_cache.dir
+/home/usr/Desktop/FOP_Project/build/CMakeFiles/rebuild_cache.dir
