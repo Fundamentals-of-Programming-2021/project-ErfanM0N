@@ -402,19 +402,19 @@ int main() {
     SDL_Texture *TextureFirst = IMG_LoadTexture(Renderer, "../IMG/FirstPage.jpg");
     SDL_Rect FullPic = {.x=0, .y=0, .w=SCREEN_WIDTH, .h=SCREEN_HEIGHT};
 
-    //if (!getName(Window,Renderer,TextureFirst,FullPic,name))
-    //{
-    //    return 0;
-    //}
+    if (!getName(Window,Renderer,TextureFirst,FullPic,name))
+    {
+        return 0;
+    }
     SDL_DestroyTexture(TextureFirst);
 
     //set Menu
     SDL_Texture *TextureMenu = IMG_LoadTexture(Renderer, "../IMG/MenuPage.jpg");
 
-    //if (!Menu(Window,Renderer,TextureMenu,FullPic))
-    //{
-    //    return 0;
-    //}
+    if (!Menu(Window,Renderer,TextureMenu,FullPic))
+    {
+        return 0;
+    }
     SDL_DestroyTexture(TextureMenu);
 
     //start Game
