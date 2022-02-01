@@ -190,8 +190,18 @@ CMakeFiles/FOP_Project.dir/main.c.o: ../main.c \
   /usr/include/SDL2/SDL.h \
   /usr/include/SDL2/SDL_image.h \
   /usr/include/SDL2/SDL_ttf.h \
-  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
+  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
+  /usr/include/time.h \
+  /usr/include/x86_64-linux-gnu/bits/time.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h
 
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+
+/usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/time.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h:
 
@@ -258,6 +268,8 @@ CMakeFiles/FOP_Project.dir/main.c.o: ../main.c \
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512vnnivlintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/avx512vbmi2vlintrin.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
 
 /usr/include/SDL2/SDL_rect.h:
 

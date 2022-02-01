@@ -100,7 +100,8 @@ int main() {
         Uint32 color3 = 0xffffff00;
         Sint16 x13 = 60, x23 = 580;
         Sint16 y13 = 300, y23 = 380;
-        boxColor(sdlRenderer, x13, y13, x23, y23, color3);        
+        boxColor(sdlRenderer, x13, y13, x23, y23, color3);   
+             
        
         SDL_PollEvent(&sdlEvent) ;
 
@@ -115,3 +116,20 @@ int main() {
     SDL_DestroyWindow(sdlWindow);
 
 }
+
+for (int i = 0; i < 3; )
+    {
+        x = rand() % t;
+        if (!object[x].HaveOwner)
+        {
+            object[x].owner = Player[0];
+            object[x].HaveOwner = 1;
+            i++;
+        }
+        
+    }
+
+if (!object[i].HaveOwner)
+        {
+            i++ ;
+        }

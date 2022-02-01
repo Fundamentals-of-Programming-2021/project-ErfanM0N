@@ -152,4 +152,7 @@ CMakeFiles/FOP_Project.dir/main.c.o: /home/usr/Desktop/FOP_Project/main.c \
  /usr/include/SDL2/SDL_timer.h /usr/include/SDL2/SDL_version.h \
  /usr/include/SDL2/SDL2_gfxPrimitives.h /usr/include/SDL2/SDL.h \
  /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL_ttf.h \
- /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
+ /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h

@@ -5,12 +5,160 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
 
 
 const int SCREEN_WIDTH = 1270;
 const int SCREEN_HEIGHT = 850;
 const int FPS = 60;
 
+typedef struct play{
+    int R ;
+    int G ;
+    int B ;
+    int score;
+    int Amount_of_state;
+}play ;
+
+typedef struct state{
+    play owner ;
+    int soldier ;
+    int x ,y ;
+    int shape;
+    int size ;
+}state ;
+
+SDL_Texture* GetText(SDL_Renderer *Renderer,int size,char* Fontname,int R,int G,int B,char* str);
+
+void ShowNumberOfSoldiers(SDL_Renderer *Renderer,int t ,state object[t]){
+    SDL_Rect rect ;
+    rect.h = 18 ;
+    for (int i = 0; i < t; i++)
+    {
+        char str[20];
+        sprintf(str,"%8d",object[i].soldier);
+        rect.w = strlen(str) * 10 ;
+        
+        SDL_Texture *TextM = GetText(Renderer,15,"Arial.ttf",0,0,0,str);
+        rect.x = object[i].x - (rect.w/2) - 20 ;
+        rect.y = object[i].y + 30 ;
+
+        SDL_RenderCopy(Renderer,TextM,NULL,&rect);
+        SDL_DestroyTexture(TextM);
+
+    }
+    
+}
+
+void IncreaseSoldier(int t ,state object[t]){
+    for (int i = 0; i < t; i++)
+    {
+        if (!(object[i].owner.R == 255 && object[i].owner.G == 255 && object[i].owner.B == 255))
+        {
+            if (object[i].soldier < 120)
+            {
+                object[i].soldier++;
+            }
+        }
+    }
+}
+
+void SoldierIcon(SDL_Renderer *Renderer,int t ,state object[t],SDL_Texture *TextureSol){
+    SDL_Rect rect;
+    rect.w = 48,rect.h = 48 ;
+    for (int i = 0; i < t; i++)
+    {
+        rect. x = object[i].x - 24 ;
+        rect. y = object[i].y - 24 ; 
+
+        SDL_RenderCopy(Renderer,TextureSol,NULL,&rect);
+    }
+    
+}
+
+int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
+    srand(time(NULL));
+    int x ;
+    int a[5] = {0};
+    
+    for (int i = 0; i < 4; i++)
+    {
+        object[i].owner = Player[0];
+        object[i].soldier = 80 ;
+    }
+    Player[0].Amount_of_state += 4;
+
+    object[4].owner = Player[1];
+    Player[1].Amount_of_state++;
+    
+    object[5].owner = Player[2];
+    Player[2].Amount_of_state++;
+    
+    object[6].owner = Player[3];
+    Player[3].Amount_of_state++;
+    
+    object[7].owner = Player[1];
+    Player[1].Amount_of_state++;
+    
+    object[8].owner = Player[2];
+    Player[2].Amount_of_state++;
+
+    
+    x = (rand() % 4) + 1;
+    object[9].owner = Player[x];
+    Player[x].Amount_of_state++;
+
+    
+}
+
+
+void CreatePlayer(SDL_Renderer *Renderer,int p ,play Player[p]){
+    Player[0].R = 255 ,Player[0].G = 255 ,Player[0].B = 255,Player[0].Amount_of_state = 0;
+    Player[1].R = 255 ,Player[1].G = 0 ,Player[1].B = 255 ,Player[1].Amount_of_state = 0;
+    Player[2].R = 0 ,Player[2].G = 255 ,Player[2].B = 255 ,Player[2].Amount_of_state = 0;
+    Player[3].R = 255 ,Player[3].G = 255 ,Player[3].B = 0 ,Player[3].Amount_of_state = 0;
+    Player[4].R = 51 ,Player[4].G = 200 ,Player[4].B = 50 ,Player[4].Amount_of_state = 0;
+}
+
+
+void CreateState(SDL_Renderer *Renderer,int t ,state object[t]){
+    int a ;
+    int Distance = 60 ;
+    int DistanceFromBorder = 80 ;
+    srand(time(NULL));
+
+    for (int i = 0; i < t; i++)
+    {
+        a = 0;
+       
+        object[i].x = (rand() % (SCREEN_WIDTH - 2*DistanceFromBorder - 60)) + (2*DistanceFromBorder + 60) / 2 ;
+        object[i].y = (rand() % (SCREEN_HEIGHT - 2*DistanceFromBorder - 60)) + (2*DistanceFromBorder + 60) / 2 ;
+        object[i].size = (rand () % 20) + 60 ;
+        
+        for (int j = 0; j < i; j++)
+        {
+            if (((object[i].x - object[j].x) <  ((object[i].size + object[j].size) + Distance) 
+            && (object[i].x - object[j].x) >  -((object[i].size + object[j].size) + Distance)) 
+            && ((object[i].y - object[j].y) <  ((object[i].size + object[j].size) + Distance) 
+            && (object[i].y - object[j].y) >  -((object[i].size + object[j].size) + Distance)))
+            {
+                i-- ;
+                a = 1 ;
+                break;
+            }
+
+        }
+                
+        if (!a)
+        {
+            object[i].shape = rand() % 2 ;
+            object[i].soldier = rand () % 30 + 20 ;
+        }
+        
+    }
+    
+
+}
 
 void Render_border(SDL_Renderer *Renderer,SDL_Rect border){
     for (int j = 1; j < 6; j++)
@@ -128,13 +276,10 @@ SDL_Texture* GetText(SDL_Renderer *Renderer,int size,char* Fontname,int R,int G,
 
 int getName(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureFirst,SDL_Rect FullPic,char name[20]){
     int i = 0 ;
+    SDL_Texture *TextM = GetText(Renderer,20,"Arial.ttf",0,0,0,"|");
     
-    SDL_Texture *TextM = GetText(Renderer,20,"arial.ttf",0,0,0,"|");
-    SDL_Texture *Textlanguage = GetText(Renderer,20,"arial.ttf",0,0,0,"Use English Characters");
-    
-    SDL_Rect text_rect = {.x=100, .y=600, .w=0, .h=95};
-    SDL_Rect text2_rect = {.x=100+3, .y=595, .w=20, .h=90};
-    SDL_Rect language = {.x=200, .y=720, .w=500, .h=95};
+    SDL_Rect text_rect = {.x=440, .y=600, .w=0, .h=95};
+    SDL_Rect textHint_rect = {.x=440+1, .y=595, .w=20, .h=90};
     
     SDL_StartTextInput();
 
@@ -146,15 +291,16 @@ int getName(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureFirst,
         SDL_SetRenderDrawColor(Renderer, 255, 255, 255, 255);
         SDL_RenderClear(Renderer);
         SDL_RenderCopy(Renderer, TextureFirst, NULL, &FullPic);
-        SDL_Texture *TextName = GetText(Renderer,40,"arial.ttf",0,0,0,name);
+        SDL_Texture *TextName = GetText(Renderer,40,"Arial.ttf",255,100,0,name);
         SDL_RenderCopy(Renderer, TextName, NULL, &text_rect);
-        SDL_RenderCopy(Renderer, Textlanguage, NULL, &language);
+
         
         if ((i % 40) < 21)
         {
-            SDL_RenderCopy(Renderer, TextM, NULL, &text2_rect);
+            SDL_RenderCopy(Renderer, TextM, NULL, &textHint_rect);
         }
         
+       
         SDL_RenderPresent(Renderer);
         
         SDL_PollEvent(&Event) ;
@@ -168,8 +314,9 @@ int getName(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureFirst,
             if (*Event.text.text < 128 && *Event.text.text >0)
             {
                 strcat(name,Event.text.text);
+                text_rect.x -= 20;
                 text_rect.w += 40 ;
-                text2_rect.x += 40 ;
+                textHint_rect.x += 20 ;
                 SDL_Delay(8000/FPS);
             }
             
@@ -182,8 +329,9 @@ int getName(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureFirst,
         else if (Event.type == SDL_KEYDOWN && Event.key.keysym.sym == SDLK_BACKSPACE && text_rect.w > 39)
         {
             name[strlen(name)-1] = '\0';
+            text_rect.x += 20;
             text_rect.w -= 40 ;
-            text2_rect.x -= 40 ;
+            textHint_rect.x -= 20 ;
             SDL_Delay(8000/FPS);
         }
         
@@ -194,7 +342,6 @@ int getName(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureFirst,
         SDL_DestroyTexture(TextName);
     }
     SDL_DestroyTexture(TextM);
-    SDL_DestroyTexture(Textlanguage);
     SDL_StopTextInput();
     return 1 ;
 
@@ -255,39 +402,72 @@ int main() {
     SDL_Texture *TextureFirst = IMG_LoadTexture(Renderer, "../IMG/FirstPage.jpg");
     SDL_Rect FullPic = {.x=0, .y=0, .w=SCREEN_WIDTH, .h=SCREEN_HEIGHT};
 
-    if (!getName(Window,Renderer,TextureFirst,FullPic,name))
-    {
-        return 0;
-    }
+    //if (!getName(Window,Renderer,TextureFirst,FullPic,name))
+    //{
+    //    return 0;
+    //}
     SDL_DestroyTexture(TextureFirst);
 
     //set Menu
     SDL_Texture *TextureMenu = IMG_LoadTexture(Renderer, "../IMG/MenuPage.jpg");
 
-    if (!Menu(Window,Renderer,TextureMenu,FullPic))
-    {
-        return 0;
-    }
+    //if (!Menu(Window,Renderer,TextureMenu,FullPic))
+    //{
+    //    return 0;
+    //}
     SDL_DestroyTexture(TextureMenu);
 
     //start Game
     SDL_Texture *TextureBG = IMG_LoadTexture(Renderer, "../IMG/GameBG.jpg");
 
+    int t = 10 ;
+    state object[t];
+    CreateState(Renderer,t,object);
 
+    int p = 5;
+    play Player[p];
+    CreatePlayer(Renderer,p,Player);
+
+    SetStateOwner(t,object,p,Player);
+    SDL_Texture *TextureSol = IMG_LoadTexture(Renderer, "../IMG/SoldierIcon.png");
+
+    int x = 0 ;
     SDL_Event sdlEvent;
     SDL_bool Exit = SDL_FALSE;
-    int i = 1 ;
     while (Exit == SDL_FALSE) 
     {
         SDL_SetRenderDrawColor(Renderer, 0 , 0 , 0 , 255);
         SDL_RenderClear(Renderer);
         SDL_RenderCopy(Renderer, TextureBG, NULL, &FullPic);
         
+
+        for (int i = 0; i < t; i++)
+        {
+            
+            if (object[i].shape)
+            {
+                filledCircleRGBA(Renderer,object[i].x,object[i].y,object[i].size,object[i].owner.R,object[i].owner.G,object[i].owner.B,2*object[i].soldier + 15);
+            }
+            else
+            {
+                boxRGBA(Renderer, object[i].x - object[i].size , object[i].y - object[i].size ,
+                object[i].x + object[i].size, object[i].y + object[i].size,object[i].owner.R,object[i].owner.G,object[i].owner.B,2*object[i].soldier + 15);
+            }
+         
+        }
         
-        
+        SoldierIcon(Renderer,t,object,TextureSol);
+        x++ ;
+        if (x == FPS/5)
+        {
+            IncreaseSoldier(t,object);
+            x = 0 ;
+        }
+        ShowNumberOfSoldiers(Renderer,t,object);
+
         SDL_RenderPresent(Renderer);
         
-
+        
         SDL_PollEvent(&sdlEvent) ;
         if (sdlEvent.type == SDL_QUIT)
         {
@@ -297,7 +477,6 @@ int main() {
         
         SDL_Delay(1000 / FPS);
     }
-    return 4;
     
     
     SDL_DestroyWindow(Window);
