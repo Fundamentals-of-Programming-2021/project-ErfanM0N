@@ -155,4 +155,6 @@ CMakeFiles/FOP_Project.dir/main.c.o: /home/usr/Desktop/FOP_Project/main.c \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h /usr/include/time.h \
  /usr/include/x86_64-linux-gnu/bits/time.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+ /home/usr/Desktop/FOP_Project/NameMenu.h \
+ /home/usr/Desktop/FOP_Project/GameGraphic.h

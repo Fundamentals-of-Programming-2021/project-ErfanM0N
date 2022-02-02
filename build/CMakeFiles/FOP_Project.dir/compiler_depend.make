@@ -194,7 +194,9 @@ CMakeFiles/FOP_Project.dir/main.c.o: ../main.c \
   /usr/include/time.h \
   /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
-  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h
+  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+  ../NameMenu.h \
+  ../GameGraphic.h
 
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
@@ -307,6 +309,8 @@ CMakeFiles/FOP_Project.dir/main.c.o: ../main.c \
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
 
+../NameMenu.h:
+
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
@@ -374,6 +378,8 @@ CMakeFiles/FOP_Project.dir/main.c.o: ../main.c \
 /usr/lib/gcc/x86_64-linux-gnu/9/include/popcntintrin.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
+
+../GameGraphic.h:
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
