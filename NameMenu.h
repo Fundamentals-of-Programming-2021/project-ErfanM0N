@@ -52,56 +52,57 @@ int Menu(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureMenu,SDL_
         SDL_RenderPresent(Renderer);
         
 
-        SDL_PollEvent(&sdlEvent) ;
-        if (sdlEvent.type == SDL_QUIT)
+        while (SDL_PollEvent(&sdlEvent))
         {
-            Exit = SDL_TRUE;
-            return 0 ;
-        }
-        else if (sdlEvent.type == SDL_KEYDOWN)
-        {
-            if (sdlEvent.key.keysym.sym == SDLK_DOWN)
+            if (sdlEvent.type == SDL_QUIT)
             {
-                i++ ;
-                if (i == 4)
+                Exit = SDL_TRUE;
+                return 0 ;
+            }
+            else if (sdlEvent.type == SDL_KEYDOWN)
+            {
+                if (sdlEvent.key.keysym.sym == SDLK_DOWN)
                 {
-                    i = 1;
+                    i++ ;
+                    if (i == 4)
+                    {
+                        i = 1;
+                    }
+                    SDL_Delay(8000 / FPS);
                 }
-                SDL_Delay(8000 / FPS);
-            }
-            if (sdlEvent.key.keysym.sym == SDLK_UP)
-            {
-                i--;
-                if (i == 0)
+                if (sdlEvent.key.keysym.sym == SDLK_UP)
                 {
-                    i = 3;
+                    i--;
+                    if (i == 0)
+                    {
+                        i = 3;
+                    }
+                    SDL_Delay(8000 / FPS);
                 }
-                SDL_Delay(8000 / FPS);
+             
+                if (sdlEvent.key.keysym.sym == SDLK_RETURN)
+                {
+                    return i;
+                }
             }
+            else if (sdlEvent.type == SDL_MOUSEBUTTONDOWN)
+            {
+                if (sdlEvent.button.x >= 90 && sdlEvent.button.x <= 90 + 640 && sdlEvent.button.y >= 335 && sdlEvent.button.y <= 335 + 110)
+                {
+                    return 1;
+                }
+                if (sdlEvent.button.x >= 60 && sdlEvent.button.x <= 60 + 840 && sdlEvent.button.y >= 510 && sdlEvent.button.y <= 510 + 110)
+                {
+                    return 2;
+                }
+                if (sdlEvent.button.x >= 240 && sdlEvent.button.x <= 240 + 440 && sdlEvent.button.y >= 670 && sdlEvent.button.y <= 670 + 100)
+                {
+                    return 3 ;
+                }
             
-            if (sdlEvent.key.keysym.sym == SDLK_RETURN)
-            {
-                return i;
             }
-        }
-        else if (sdlEvent.type == SDL_MOUSEBUTTONDOWN)
-        {
-            if (sdlEvent.button.x >= 90 && sdlEvent.button.x <= 90 + 640 && sdlEvent.button.y >= 335 && sdlEvent.button.y <= 335 + 110)
-            {
-                return 1;
-            }
-            if (sdlEvent.button.x >= 60 && sdlEvent.button.x <= 60 + 840 && sdlEvent.button.y >= 510 && sdlEvent.button.y <= 510 + 110)
-            {
-                return 2;
-            }
-            if (sdlEvent.button.x >= 240 && sdlEvent.button.x <= 240 + 440 && sdlEvent.button.y >= 670 && sdlEvent.button.y <= 670 + 100)
-            {
-                return 3 ;
-            }
-            
-        }
+        }    
                 
-
         SDL_Delay(1000 / FPS);
     }
     return 4;
@@ -159,39 +160,37 @@ int getName(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureFirst,
        
         SDL_RenderPresent(Renderer);
         
-        SDL_PollEvent(&Event) ;
-        if (Event.type == SDL_QUIT)
+        while (SDL_PollEvent(&Event))
         {
-            Exit = SDL_TRUE;
-            return 0 ;
-        }
-        else if (Event.type == SDL_TEXTINPUT && text_rect.w < 680)
-        {
-            if (*Event.text.text < 128 && *Event.text.text >0)
+            if (Event.type == SDL_QUIT)
             {
-                strcat(name,Event.text.text);
-                text_rect.x -= 20;
-                text_rect.w += 40 ;
-                textHint_rect.x += 20 ;
-                SDL_Delay(8000/FPS);
+                Exit = SDL_TRUE;
+                return 0 ;
             }
+            else if (Event.type == SDL_TEXTINPUT && text_rect.w < 680)
+            {
+                if (*Event.text.text < 128 && *Event.text.text >0)
+                {
+                    strcat(name,Event.text.text);
+                    text_rect.x -= 20;
+                    text_rect.w += 40 ;
+                    textHint_rect.x += 20 ;
+                }
             
-        }
-        else if (Event.type == SDL_KEYDOWN && Event.key.keysym.sym == SDLK_RETURN)
-        {
+            }
+            else if (Event.type == SDL_KEYDOWN && Event.key.keysym.sym == SDLK_RETURN && name[0] != '\0')
+            {
             
-            SDL_Delay(8000/FPS);
-            return 1;
+                return 1;
+            }
+            else if (Event.type == SDL_KEYDOWN && Event.key.keysym.sym == SDLK_BACKSPACE && text_rect.w > 39)
+            {
+                name[strlen(name)-1] = '\0';
+                text_rect.x += 20;
+                text_rect.w -= 40 ;
+                textHint_rect.x -= 20 ;
+            }
         }
-        else if (Event.type == SDL_KEYDOWN && Event.key.keysym.sym == SDLK_BACKSPACE && text_rect.w > 39)
-        {
-            name[strlen(name)-1] = '\0';
-            text_rect.x += 20;
-            text_rect.w -= 40 ;
-            textHint_rect.x -= 20 ;
-            SDL_Delay(8000/FPS);
-        }
-        
         
         SDL_Delay(1000 / FPS);
         i %= 40 ;

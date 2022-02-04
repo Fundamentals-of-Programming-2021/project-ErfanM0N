@@ -33,9 +33,10 @@ typedef struct state{
 
 
 void RenderLeaderBoard(SDL_Renderer *Renderer,SDL_Texture *BoardT,int p ,play Player[p]){   
-    SDL_Rect LeaderBoard = {.x = 10 ,.y = 10 ,.h = 260 ,.w = 180};
-    SDL_Rect Board = {.x = 30 ,.y = 30 ,.h = 20 ,.w = 130};
-    SDL_Rect Score = {.x = 90 ,.y = 80 ,.h = 30 ,.w = 55};
+    SDL_Rect LeaderBoard = {.x = 10 ,.y = 10 ,.h = 260 ,.w = 200};
+    SDL_Rect Board = {.x = 30 ,.y = 30 ,.h = 20 ,.w = 155};
+    SDL_Rect Score = {.x = 125 ,.y = 80 ,.h = 30 ,.w = 55};
+    SDL_Rect State = {.x = 65 ,.y = 80 ,.h = 30 ,.w = 55};
 
     if (AmountOfPlayers == 3)
     {
@@ -53,22 +54,30 @@ void RenderLeaderBoard(SDL_Renderer *Renderer,SDL_Texture *BoardT,int p ,play Pl
     Render_border(Renderer,LeaderBoard,5);
     SDL_RenderCopy(Renderer,BoardT,NULL,&Board);
 
-    thickLineRGBA(Renderer,10,65,190,65,5,0,0,0,255);
-    
-
+    thickLineRGBA(Renderer,10,65,210,65,5,0,0,0,255);
     
 
     for (int i = 1; i <= AmountOfPlayers; i++)
     {
-        char str[20];
+        char str[20],str1[20];
         filledCircleRGBA(Renderer,x,y + (50 * (Player[i].rank - 1)),18,Player[i].R,Player[i].G,Player[i].B,240);
+        
         Score.y = 80;
+        State.y = 80;
+
         sprintf(str,"%8d",Player[i].score);
         SDL_Texture *TextScore = GetText(Renderer,35,"Arial.ttf",0,0,0,str);
         Score.y += (50 * (Player[i].rank - 1)) ;
         SDL_RenderCopy(Renderer,TextScore,NULL,&Score);
         SDL_DestroyTexture(TextScore);
-        thickLineRGBA(Renderer,10,y + (50 * (Player[i].rank - 1))+25,190,y + (50 * (Player[i].rank - 1))+25,3,0,0,0,255);
+
+        sprintf(str1,"%8d",Player[i].Amount_of_state);
+        SDL_Texture *TextState = GetText(Renderer,35,"Arial.ttf",0,0,0,str1);
+        State.y += (50 * (Player[i].rank - 1)) ;
+        SDL_RenderCopy(Renderer,TextState,NULL,&State);
+        SDL_DestroyTexture(TextState);
+
+        thickLineRGBA(Renderer,10,y + (50 * (Player[i].rank - 1))+25,210,y + (50 * (Player[i].rank - 1))+25,3,0,0,0,255);
     }
     
 
@@ -230,10 +239,10 @@ int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
 
 void CreatePlayer(SDL_Renderer *Renderer,int p ,play Player[p]){
     Player[0].R = 255 ,Player[0].G = 255 ,Player[0].B = 255,Player[0].Amount_of_state = 0 , Player[0].score = 0 ,Player[0].rank = 0;
-    Player[1].R = 255 ,Player[1].G = 0 ,Player[1].B = 255 ,Player[1].Amount_of_state = 0 , Player[1].score = 0 ,Player[1].rank = 1 ;
-    Player[2].R = 0 ,Player[2].G = 255 ,Player[2].B = 255 ,Player[2].Amount_of_state = 0 , Player[2].score = 0 ,Player[2].rank = 2 ;
-    Player[3].R = 255 ,Player[3].G = 255 ,Player[3].B = 0 ,Player[3].Amount_of_state = 0 , Player[3].score = 0 ,Player[3].rank = 3;
-    Player[4].R = 51 ,Player[4].G = 200 ,Player[4].B = 50 ,Player[4].Amount_of_state = 0 , Player[4].score = 0 ,Player[4].rank = 4;
+    Player[1].R = 200 ,Player[1].G = 100 ,Player[1].B = 200 ,Player[1].Amount_of_state = 0 , Player[1].score = 0 ,Player[1].rank = 1 ;
+    Player[2].R = 3 ,Player[2].G = 169 ,Player[2].B = 244 ,Player[2].Amount_of_state = 0 , Player[2].score = 0 ,Player[2].rank = 2 ;
+    Player[3].R = 51 ,Player[3].G = 200 ,Player[3].B = 0 ,Player[3].Amount_of_state = 0 , Player[3].score = 0 ,Player[3].rank = 3;
+    Player[4].R = 240 ,Player[4].G = 160 ,Player[4].B = 0 ,Player[4].Amount_of_state = 0 , Player[4].score = 0 ,Player[4].rank = 4;
 }
 
 
@@ -251,7 +260,7 @@ void CreateState(SDL_Renderer *Renderer,int t ,state object[t]){
         object[i].y = (rand() % (SCREEN_HEIGHT - 2*DistanceFromBorder - 60)) + (2*DistanceFromBorder + 60) / 2 ;
         object[i].size = (rand () % 20) + 60 ;
 
-        if ((object[i].x - object[i].size) < 270 && (object[i].y - object[i].size) < 310)
+        if ((object[i].x - object[i].size) < 230 && (object[i].y - object[i].size) < 290)
         {
             i-- ;
             a = 1 ;
