@@ -21,11 +21,13 @@ typedef struct play{
     int score;
     int Amount_of_state;
     int rank;
+    int SoldierOnSurface;
 }play ;
 
 typedef struct state{
     play owner ;
     int soldier ;
+    int ReadySoldier ;
     int x ,y ;
     int shape;
     int size ;
@@ -123,6 +125,8 @@ void Getscore(int t ,state object[t],int p ,play Player[p]){
             }
             
         }
+        Player[i].score +=  Player[i].SoldierOnSurface ;
+        
         
     }
     
@@ -167,6 +171,7 @@ void IncreaseSoldier(int t ,state object[t],int p ,play Player[p]){
             if (object[i].soldier < 120)
             {
                 object[i].soldier++;
+                object[i].ReadySoldier++ ;
             }
         }
     }
@@ -207,7 +212,8 @@ int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
         {
             object[i].owner = Player[0];
             Player[0].Amount_of_state += 1;
-            object[i].soldier = 80 ;
+            object[i].soldier = 70 ;
+            object[i].ReadySoldier = 70 ;
         }
         AmountOfPlayers = 4;
     }
@@ -219,7 +225,8 @@ int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
         {
             object[i].owner = Player[0];
             Player[0].Amount_of_state += 1;
-            object[i].soldier = 80 ;
+            object[i].soldier = 70 ;
+            object[i].ReadySoldier = 70 ;
         }
         AmountOfPlayers = 3;
     }
@@ -229,7 +236,8 @@ int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
         {
             object[i].owner = Player[0];
             Player[0].Amount_of_state += 1;
-            object[i].soldier = 80 ;
+            object[i].soldier = 70 ;
+            object[i].ReadySoldier = 70 ;
         }
         AmountOfPlayers = 2;
     }
@@ -239,10 +247,10 @@ int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
 
 void CreatePlayer(SDL_Renderer *Renderer,int p ,play Player[p]){
     Player[0].R = 255 ,Player[0].G = 255 ,Player[0].B = 255,Player[0].Amount_of_state = 0 , Player[0].score = 0 ,Player[0].rank = 0;
-    Player[1].R = 200 ,Player[1].G = 100 ,Player[1].B = 200 ,Player[1].Amount_of_state = 0 , Player[1].score = 0 ,Player[1].rank = 1 ;
-    Player[2].R = 3 ,Player[2].G = 169 ,Player[2].B = 244 ,Player[2].Amount_of_state = 0 , Player[2].score = 0 ,Player[2].rank = 2 ;
-    Player[3].R = 51 ,Player[3].G = 200 ,Player[3].B = 0 ,Player[3].Amount_of_state = 0 , Player[3].score = 0 ,Player[3].rank = 3;
-    Player[4].R = 240 ,Player[4].G = 160 ,Player[4].B = 0 ,Player[4].Amount_of_state = 0 , Player[4].score = 0 ,Player[4].rank = 4;
+    Player[1].R = 200 ,Player[1].G = 100 ,Player[1].B = 200 ,Player[1].Amount_of_state = 0 , Player[1].score = 0 ,Player[1].rank = 1 ,Player[1].SoldierOnSurface = 0;
+    Player[2].R = 3 ,Player[2].G = 169 ,Player[2].B = 244 ,Player[2].Amount_of_state = 0 , Player[2].score = 0 ,Player[2].rank = 2 ,Player[2].SoldierOnSurface = 0;
+    Player[3].R = 51 ,Player[3].G = 230 ,Player[3].B = 0 ,Player[3].Amount_of_state = 0 , Player[3].score = 0 ,Player[3].rank = 3 ,Player[3].SoldierOnSurface = 0;
+    Player[4].R = 240 ,Player[4].G = 160 ,Player[4].B = 0 ,Player[4].Amount_of_state = 0 , Player[4].score = 0 ,Player[4].rank = 4 ,Player[4].SoldierOnSurface = 0;
 }
 
 
@@ -283,12 +291,13 @@ void CreateState(SDL_Renderer *Renderer,int t ,state object[t]){
         if (!a)
         {
             object[i].shape = rand() % 2 ;
-            object[i].soldier = rand () % 20 + 30 ;
+            object[i].soldier = rand () % 15 + 40 ;
+            object[i].ReadySoldier = object[i].soldier ;
         }
         
     }
     
-
 }
+
 
 #endif 

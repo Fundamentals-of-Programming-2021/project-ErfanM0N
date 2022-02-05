@@ -132,6 +132,7 @@ SDL_Texture* GetText(SDL_Renderer *Renderer,int size,char* Fontname,int R,int G,
 
 
 int getName(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureFirst,SDL_Rect FullPic,char name[20]){
+    name[0] = '\0';
     int i = 0 ;
     SDL_Texture *TextM = GetText(Renderer,20,"Arial.ttf",0,0,0,"|");
     
