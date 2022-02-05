@@ -16,7 +16,7 @@
 
 
 const int vCursor = 10;
-const int v = 2 ;
+const float v = 1.5 ;
 
 
 typedef struct sol{
@@ -32,88 +32,237 @@ typedef struct sol{
     int dest ;
 }sol;
 
-
-int getOwner(int p , play Player[p],state j){
-    for (int i = 0; i < p; i++)
+int WinOrLost(SDL_Renderer *Renderer,int p,play Player[p]){
+    SDL_Rect end = {.x = 200 , .y = 500 , .w = 400 , .h = 100 };
+    SDL_Texture *TextEnd = GetText(Renderer,100,"Arial.ttf",0,0,0,"GAME OVER");
+    if (Player[1].score == 0)
     {
-        if (Isequal(j.owner,Player[i]))
-        {
-            return i ;
-            break;
-        }
-        
+        SDL_RenderCopy(Renderer,TextEnd,NULL,&end);
+        SDL_DestroyTexture(TextEnd);
+        return 1 ;
     }
+    
     return 0 ;
+
 }
 
-void ShowSoldier(SDL_Renderer *Renderer,sol *Soldier,int p , play Player[p],int t ,state object[t]){
-    for (int i = 0; i < 1000; i++)
+void SoldierEatPotion(mixture Potion[4],int t ,state object[t],int p ,play Player[p],sol *Soldier){
+    for (int i = 0; i < 4; i++)
     {
-        if (Soldier[i].active > 2)
+        if (Potion[i].active == 1)
         {
-            Soldier[i].active--;
-        }
-        else if (Soldier[i].active == 2)
-        {
-            object[Soldier[i].owner].soldier--;
-            Player[Soldier[i].Playerowner].SoldierOnSurface++;
-            Soldier[i].active--;
-            Soldier[i].x += 7 * Soldier[i].dx * v ;
-            Soldier[i].y += 7 * Soldier[i].dy * v ;
-        }
-        
-        else if (Soldier[i].active == 1)
-        {
-        
-            if ( ((Soldier[i].dx > 0 && (Soldier[i].x + 7 * Soldier[i].dx * v <= Soldier[i].x1)) || 
-            (Soldier[i].dx < 0 && (Soldier[i].x + 7 * Soldier[i].dx * v >= Soldier[i].x1) )) && 
-            ((Soldier[i].dy > 0 && (Soldier[i].y + 7 * Soldier[i].dy * v <= Soldier[i].y1)) || 
-            (Soldier[i].dy < 0 && (Soldier[i].y + 7 * Soldier[i].dy * v >= Soldier[i].y1) )))
+            
+            for (int j = 0; j < 1000; j++)
             {
-                Soldier[i].x += Soldier[i].dx * v ;
-                Soldier[i].y += Soldier[i].dy * v ;
+                if (Potion[i].x - Soldier[j].x < 18 && Potion[i].x - Soldier[j].x > -18 && Potion[i].y - Soldier[j].y < 18 && Potion[i].y - Soldier[j].y > -18
+                && Player[Soldier[j].Playerowner].Potion < 0)
+                {
+                    Potion[i].time = 0 ;
+                    Potion[i].active = -1;
+                    Player[Soldier[j].Playerowner].Potion = i ;
+                    Player[Soldier[j].Playerowner].PotionActiveTime = Potion[i].activeTime ;
+                    break;
+                }
+            
+            }
+        }
+        
+        
+    }
+    
+}
+
+void setPotionTime(mixture Potion[4],int p ,play Player[p]){
+    
+    for (int i = 0; i < 4; i++)
+    {
+        if ( Potion[i].active == 1)
+        {
+            if (Potion[i].time > 0 )
+            {
+                Potion[i].time-- ;
             }
             else
             {
-                int q1 = getOwner(p,Player,object[Soldier[i].dest]);
-                if (Soldier[i].Playerowner == q1)
-                {
-                    object[Soldier[i].dest].soldier++ ;
-                    object[Soldier[i].dest].ReadySoldier++ ;
-                }
-                else
-                {
-                    object[Soldier[i].dest].soldier-- ;
-                    object[Soldier[i].dest].ReadySoldier-- ;
-                    if (object[Soldier[i].dest].soldier < 0)
-                    {
-                        object[Soldier[i].dest].owner = Player[Soldier[i].Playerowner];
-                        object[Soldier[i].dest].soldier = 1 ; 
-                        object[Soldier[i].dest].ReadySoldier = 1 ;
-                        Player[Soldier[i].Playerowner].Amount_of_state++ ;
-                        Player[q1].Amount_of_state-- ;
-                    }
-                    else if (object[Soldier[i].dest].ReadySoldier < 0)
-                    {
-                        object[Soldier[i].dest].ReadySoldier = 0 ;
-                        for (int j = 999; j >= 0; j--)
-                        {
-                            if (Soldier[j].owner == Soldier[i].dest && Soldier[j].active > 2)
-                            {
-                                Soldier[j].active = -1 ;
-                                break ;
-                            }
-                        }
-                            
-                    }
-                }
-                Player[Soldier[i].Playerowner].SoldierOnSurface-- ;
-                Soldier[i].active = -1 ;
+               Potion[i].active = -1 ;
             }
             
         }
-            
+         
     }
+
+    for (int i = 0; i < p; i++)
+    {
+        if (Player[i].Potion > -1)
+        {
+            Player[i].PotionActiveTime--;
+        }
+        if (Player[i].PotionActiveTime == 0)
+        {
+            Player[i].Potion = -1;
+        }
+        
+    }
+    
+}
+
+void ShowPotion(SDL_Renderer *Renderer,mixture Potion[4]){
+    
+    for (int i = 0; i < 4; i++)
+    {
+        if (Potion[i].active == 1)
+        {
+            SDL_Rect potion = {.x = Potion[i].x - 15 ,.y = Potion[i].y - 15,.w = 30 ,.h = 30 };
+            SDL_RenderCopy(Renderer, Potion[i].PotionPic, NULL, &potion);
+        }
+        
+    }
+
+    
+}
+
+void AddPotion(int t ,state object[t],mixture Potion[4]){
+    int a[5];
+    a[0] = 0 ;
+    int j = 1 ;
+    for (int i = 0; i < 4; i++)
+    {
+        if (Potion[i].active == -1)
+        {
+            a[j] = i ;
+            a[0]++;
+            j++ ;
+        }   
+    }
+    
+    int x = rand () % t ;
+    int y = rand () % (t-1) + 1; 
+    y = (x + y) % t ;
+
+    int domain = rand () % 6 + 2 ;
+
+    if (a[0] > 0)
+    {
+        int P = rand () % a[0] + 1;
+        P = a[P] ;
+        Potion[P].active = 1 ;
+        Potion[P].time = 12 ;
+        Potion[P].x = (object[x].x * domain  +  object[y].x * (10 - domain)) / 10 ;
+        Potion[P].y = (object[x].y * domain  +  object[y].y * (10 - domain)) / 10 ;
+    }
+    
+}
+
+void initPotion(mixture Potion[4]){
+    for (int i = 0; i < 4; i++)
+    {
+        Potion[i].active = -1 ;
+    }
+
+    Potion[0].activeTime = 18 /*Increse Soldiers Unlimited */  ;
+    Potion[1].activeTime = 15 /* change enemy soldiers to friend*/;
+    Potion[2].activeTime = 9  /* stop other Players Soldiers*/;
+    Potion[3].activeTime = 15 /* 2X friend Soldiers' speed*/;
+}
+
+
+
+void ShowSoldier(SDL_Renderer *Renderer,sol *Soldier,int p , play Player[p],int t ,state object[t]){
+    int q = -1 ;
+    for (int i = 0; i < p; i++)
+    {
+        if (Player[i].Potion == 2)
+        {
+            q = i ;
+            break ;
+        }
+        
+    }
+    
+
+    for (int i = 0; i < 1000; i++)
+    {
+        if (Soldier[i].active > 0 && (q == -1 || (q > -1 && Soldier[i].Playerowner == q) ) )
+        {
+            if (Soldier[i].active > 2)
+            {
+                Soldier[i].active--;
+                if (Player[Soldier[i].Playerowner].Potion == 3)
+                {
+                    Soldier[i].active--;
+                }
+                
+            }
+            else if (Soldier[i].active == 2)
+            {
+                object[Soldier[i].owner].soldier--;
+                Player[Soldier[i].Playerowner].SoldierOnSurface++;
+                Soldier[i].active--;
+                Soldier[i].x += 7 * Soldier[i].dx * v ;
+                Soldier[i].y += 7 * Soldier[i].dy * v ;
+            }
+        
+            else if (Soldier[i].active == 1)
+            {
+        
+                if ( ((Soldier[i].dx > 0 && (Soldier[i].x + 7 * Soldier[i].dx * v <= Soldier[i].x1)) || 
+                (Soldier[i].dx < 0 && (Soldier[i].x + 7 * Soldier[i].dx * v >= Soldier[i].x1) )) && 
+                ((Soldier[i].dy > 0 && (Soldier[i].y + 7 * Soldier[i].dy * v <= Soldier[i].y1)) || 
+                (Soldier[i].dy < 0 && (Soldier[i].y + 7 * Soldier[i].dy * v >= Soldier[i].y1) )))
+                {
+                    Soldier[i].x += Soldier[i].dx * v ;
+                    Soldier[i].y += Soldier[i].dy * v ;
+
+                    if (Player[Soldier[i].Playerowner].Potion == 3)
+                    {
+                        Soldier[i].x += Soldier[i].dx * v ;
+                        Soldier[i].y += Soldier[i].dy * v ;
+                    }
+                }
+                else
+                {
+                    int q1 = getOwner(p,Player,object[Soldier[i].dest]);
+                    if (Soldier[i].Playerowner == q1 || Player[q1].Potion == 1)
+                    {
+                        object[Soldier[i].dest].soldier++ ;
+                        object[Soldier[i].dest].ReadySoldier++ ;
+                    }
+                    else
+                    {
+                        object[Soldier[i].dest].soldier-- ;
+                        object[Soldier[i].dest].ReadySoldier-- ;
+                        if (object[Soldier[i].dest].soldier < 0)
+                        {
+                            object[Soldier[i].dest].owner = Player[Soldier[i].Playerowner];
+                            object[Soldier[i].dest].soldier = 1 ; 
+                            object[Soldier[i].dest].ReadySoldier = 1 ;
+                            Player[Soldier[i].Playerowner].Amount_of_state++ ;
+                            Player[q1].Amount_of_state-- ;
+                        }
+                        else if (object[Soldier[i].dest].ReadySoldier < 0)
+                        {
+                            object[Soldier[i].dest].ReadySoldier = 0 ;
+                            for (int j = 999; j >= 0; j--)
+                            {
+                                if (Soldier[j].owner == Soldier[i].dest && Soldier[j].active > 2)
+                                {
+                                    Soldier[j].active = -1 ;
+                                    break ;
+                                }
+                            }
+                            
+                        }
+                    }
+                    Player[Soldier[i].Playerowner].SoldierOnSurface-- ;
+                    Soldier[i].active = -1 ;
+                }
+            
+            }
+            
+        }
+    }
+        
+        
     
     for (int i = 0; i < 1000; i++)
     {
@@ -215,7 +364,7 @@ void CreateSoldier(state i,state j,sol *Soldier,int p , play Player[p],int state
 
         if (Soldier[t].active == -1)
         {
-            Soldier[t].active = 7 * (q/3) + 2;
+            Soldier[t].active = 8 * (q/3) + 2;
             if (q % 3 == 2)
             {
                 Soldier[t].x = i.x + (distanceBetweenLines * (dy/d));
@@ -289,11 +438,17 @@ void SmartAttack(sol *Soldier,int p , play Player[p],int t , state object[t]){
             
             }
         }
-        if (object[j].ReadySoldier > w + 10)
+        if (object[j].ReadySoldier > y1 + 20)
         {
             CreateSoldier(object[j],object[y2],Soldier,p,Player,j,y2);
             object[j].ReadySoldier = 0 ;
         }
+        else if (Player[0].Amount_of_state == 0 && object[j].ReadySoldier > y1 - 15)
+        {
+            CreateSoldier(object[j],object[y2],Soldier,p,Player,j,y2);
+            object[j].ReadySoldier = 0 ;
+        }
+        
         
     }
     
@@ -318,6 +473,16 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
 
     
     SDL_Texture *BoardT = GetText(Renderer,45,"Arial.ttf",0,0,30,"LEADERBOARD");
+
+    mixture Potion[4];
+
+    Potion[0].PotionPic = IMG_LoadTexture(Renderer, "../IMG/potion1.png");
+    Potion[1].PotionPic = IMG_LoadTexture(Renderer, "../IMG/potion2.png");
+    Potion[2].PotionPic = IMG_LoadTexture(Renderer, "../IMG/potion3.png");
+    Potion[3].PotionPic = IMG_LoadTexture(Renderer, "../IMG/potion4.png");
+
+    initPotion(Potion);
+    
     
     int j[3] = {-1};
     int w[3] = {0} ;
@@ -331,6 +496,7 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
     }
     
     int x1 = 0 ;
+    int x2 = 0 ;
 
     SDL_Event sdlEvent;
     SDL_bool Exit = SDL_FALSE;
@@ -371,9 +537,21 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
         x1++ ;
         if (x1 == FPS * 3)
         {
-            SmartAttack(Soldier,p,Player,t,object);
+            //SmartAttack(Soldier,p,Player,t,object);
             x1 = 0 ;
         }
+
+        x2++ ;
+        if (!(x2 % FPS))
+        {
+            setPotionTime(Potion,p,Player);
+        }
+        if (x2 == FPS * 8)
+        {
+            AddPotion(t,object,Potion);
+            x2 = 0 ;
+        }
+        
         
         ShowNumberOfSoldiers(Renderer,t,object);
 
@@ -381,7 +559,7 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
 
         SetRank(p,Player);
 
-        RenderLeaderBoard(Renderer,BoardT,p,Player);
+        RenderLeaderBoard(Renderer,BoardT,p,Player,Potion);
 
         if (j[0] > -1)
         {
@@ -417,11 +595,16 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
             
         }
         
+
         ShowSoldier(Renderer,Soldier,p,Player,t,object);
         
+        ShowPotion(Renderer,Potion);
+
+        SoldierEatPotion(Potion,t,object,p,Player,Soldier);
 
         SDL_RenderPresent(Renderer);
         
+        //int k = WinOrLost(Renderer,p,Player);
         
         while (SDL_PollEvent(&sdlEvent))
         {
@@ -439,7 +622,7 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
                     for (int i = 0; i < t; i++)
                     {
                         if (sdlEvent.button.x >= object[i].x - 30 && sdlEvent.button.x <= object[i].x + 30 && 
-                        sdlEvent.button.y >= object[i].y - 30 && sdlEvent.button.y <= object[i].y + 30 && Isequal(Player[1],object[i].owner))
+                        sdlEvent.button.y >= object[i].y - 30 && sdlEvent.button.y <= object[i].y + 30  /*&& Isequal(Player[1],object[i].owner)*/)
                         {
                             j[0] = i ;
                             w[0] = 0;

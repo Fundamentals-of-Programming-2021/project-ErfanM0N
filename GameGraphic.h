@@ -14,6 +14,16 @@
 
 int AmountOfPlayers;
 
+typedef struct mixture{
+    SDL_Texture *PotionPic;
+    int x;
+    int y;
+    int active;
+    int time;
+    int activeTime ;
+}mixture ;
+
+
 typedef struct play{
     int R ;
     int G ;
@@ -22,6 +32,8 @@ typedef struct play{
     int Amount_of_state;
     int rank;
     int SoldierOnSurface;
+    int Potion;
+    int PotionActiveTime;
 }play ;
 
 typedef struct state{
@@ -33,12 +45,36 @@ typedef struct state{
     int size ;
 }state ;
 
+int Isequal(play x,play y){
+    if (x.R == y.R && x.G == y.G && x.B == y.B)
+    {
+        return 1;
+    }
+    return 0;
+}
 
-void RenderLeaderBoard(SDL_Renderer *Renderer,SDL_Texture *BoardT,int p ,play Player[p]){   
+
+int getOwner(int p , play Player[p],state j){
+    for (int i = 0; i < p; i++)
+    {
+        if (Isequal(j.owner,Player[i]))
+        {
+            return i ;
+            break;
+        }
+        
+    }
+    return 0 ;
+}
+
+
+
+void RenderLeaderBoard(SDL_Renderer *Renderer,SDL_Texture *BoardT,int p ,play Player[p],mixture Potion[4]){   
     SDL_Rect LeaderBoard = {.x = 10 ,.y = 10 ,.h = 260 ,.w = 200};
     SDL_Rect Board = {.x = 30 ,.y = 30 ,.h = 20 ,.w = 155};
-    SDL_Rect Score = {.x = 125 ,.y = 80 ,.h = 30 ,.w = 55};
-    SDL_Rect State = {.x = 65 ,.y = 80 ,.h = 30 ,.w = 55};
+    SDL_Rect Score = {.x = 105 ,.y = 80 ,.h = 30 ,.w = 55};
+    SDL_Rect State = {.x = 55 ,.y = 80 ,.h = 30 ,.w = 55};
+    SDL_Rect potion = {.x = 175 ,.y = 80 ,.h = 30 ,.w = 30};
 
     if (AmountOfPlayers == 3)
     {
@@ -66,6 +102,7 @@ void RenderLeaderBoard(SDL_Renderer *Renderer,SDL_Texture *BoardT,int p ,play Pl
         
         Score.y = 80;
         State.y = 80;
+        potion.y = 80;
 
         sprintf(str,"%8d",Player[i].score);
         SDL_Texture *TextScore = GetText(Renderer,35,"Arial.ttf",0,0,0,str);
@@ -79,8 +116,20 @@ void RenderLeaderBoard(SDL_Renderer *Renderer,SDL_Texture *BoardT,int p ,play Pl
         SDL_RenderCopy(Renderer,TextState,NULL,&State);
         SDL_DestroyTexture(TextState);
 
+        if (Player[i].Potion > -1)
+        {
+            potion.y += (50 * (Player[i].rank - 1)) ;
+            SDL_RenderCopy(Renderer,Potion[Player[i].Potion].PotionPic,NULL,&potion);
+        }
+        
+
         thickLineRGBA(Renderer,10,y + (50 * (Player[i].rank - 1))+25,210,y + (50 * (Player[i].rank - 1))+25,3,0,0,0,255);
     }
+
+    SDL_Texture *TextYou = GetText(Renderer,25,"Arial.ttf",100,20,0,"YOU");
+    SDL_Rect you = {.x = 27 ,.y = 82 + (50 * (Player[1].rank - 1)) ,.w = 26,.h = 26};
+    SDL_RenderCopy(Renderer,TextYou,NULL,&you);
+    SDL_DestroyTexture(TextYou);
     
 
 }
@@ -105,13 +154,6 @@ void SetRank(int p ,play Player[p]){
     
 }
 
-int Isequal(play x,play y){
-    if (x.R == y.R && x.G == y.G && x.B == y.B)
-    {
-        return 1;
-    }
-    return 0;
-}
 
 void Getscore(int t ,state object[t],int p ,play Player[p]){
     for (int i = 1; i < p; i++)
@@ -168,14 +210,24 @@ void IncreaseSoldier(int t ,state object[t],int p ,play Player[p]){
     {
         if (!Isequal(object[i].owner,Player[0]))
         {
-            if (object[i].soldier < 120)
+            int q = getOwner(p,Player,object[i]);
+
+            if (object[i].soldier < 100)
+            {   
+                object[i].soldier++;
+                object[i].ReadySoldier++ ;
+            }
+
+            else if (Player[q].Potion == 0)
             {
                 object[i].soldier++;
                 object[i].ReadySoldier++ ;
             }
+            
         }
     }
 }
+
 
 void SoldierIcon(SDL_Renderer *Renderer,int t ,state object[t],SDL_Texture *TextureSol){
     SDL_Rect rect;
@@ -247,10 +299,18 @@ int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
 
 void CreatePlayer(SDL_Renderer *Renderer,int p ,play Player[p]){
     Player[0].R = 255 ,Player[0].G = 255 ,Player[0].B = 255,Player[0].Amount_of_state = 0 , Player[0].score = 0 ,Player[0].rank = 0;
-    Player[1].R = 200 ,Player[1].G = 100 ,Player[1].B = 200 ,Player[1].Amount_of_state = 0 , Player[1].score = 0 ,Player[1].rank = 1 ,Player[1].SoldierOnSurface = 0;
-    Player[2].R = 3 ,Player[2].G = 169 ,Player[2].B = 244 ,Player[2].Amount_of_state = 0 , Player[2].score = 0 ,Player[2].rank = 2 ,Player[2].SoldierOnSurface = 0;
-    Player[3].R = 51 ,Player[3].G = 230 ,Player[3].B = 0 ,Player[3].Amount_of_state = 0 , Player[3].score = 0 ,Player[3].rank = 3 ,Player[3].SoldierOnSurface = 0;
-    Player[4].R = 240 ,Player[4].G = 160 ,Player[4].B = 0 ,Player[4].Amount_of_state = 0 , Player[4].score = 0 ,Player[4].rank = 4 ,Player[4].SoldierOnSurface = 0;
+
+    Player[1].R = 200 ,Player[1].G = 100 ,Player[1].B = 200 ,Player[1].Amount_of_state = 0 , Player[1].score = 0 ,Player[1].rank = 1 
+    ,Player[1].SoldierOnSurface = 0 ,Player[1].Potion = -1;
+
+    Player[2].R = 3 ,Player[2].G = 169 ,Player[2].B = 244 ,Player[2].Amount_of_state = 0 , Player[2].score = 0 ,Player[2].rank = 2 
+    ,Player[2].SoldierOnSurface = 0 ,Player[2].Potion = -1;
+
+    Player[3].R = 51 ,Player[3].G = 230 ,Player[3].B = 0 ,Player[3].Amount_of_state = 0 , Player[3].score = 0 ,Player[3].rank = 3 
+    ,Player[3].SoldierOnSurface = 0 ,Player[3].Potion = -1;
+
+    Player[4].R = 240 ,Player[4].G = 160 ,Player[4].B = 0 ,Player[4].Amount_of_state = 0 , Player[4].score = 0 ,Player[4].rank = 4 
+    ,Player[4].SoldierOnSurface = 0 ,Player[4].Potion = -1;
 }
 
 
