@@ -1,7 +1,7 @@
-CMakeFiles/FOP_Project.dir/main.c.o: /home/usr/Desktop/FOP_Project/main.c \
- /usr/include/stdc-predef.h /usr/include/SDL2/SDL.h \
- /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
- /usr/include/SDL2/SDL_config.h \
+CMakeFiles/FOP_Project.dir/CreateNewGame.c.o: \
+ /home/usr/Desktop/FOP_Project/CreateNewGame.c /usr/include/stdc-predef.h \
+ /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
+ /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
  /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h \
  /usr/include/SDL2/SDL_platform.h /usr/include/SDL2/begin_code.h \
  /usr/include/SDL2/close_code.h /usr/include/x86_64-linux-gnu/sys/types.h \
@@ -151,6 +151,8 @@ CMakeFiles/FOP_Project.dir/main.c.o: /home/usr/Desktop/FOP_Project/main.c \
  /usr/include/SDL2/SDL_shape.h /usr/include/SDL2/SDL_system.h \
  /usr/include/SDL2/SDL_timer.h /usr/include/SDL2/SDL_version.h \
  /usr/include/SDL2/SDL2_gfxPrimitives.h /usr/include/SDL2/SDL.h \
- /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL_ttf.h \
+ /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /home/usr/Desktop/FOP_Project/Functions.h \
  /home/usr/Desktop/FOP_Project/Structs.h

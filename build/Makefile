@@ -149,6 +149,174 @@ FOP_Project/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/build
 .PHONY : FOP_Project/fast
 
+CreateNewGame.o: CreateNewGame.c.o
+.PHONY : CreateNewGame.o
+
+# target to build an object file
+CreateNewGame.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/CreateNewGame.c.o
+.PHONY : CreateNewGame.c.o
+
+CreateNewGame.i: CreateNewGame.c.i
+.PHONY : CreateNewGame.i
+
+# target to preprocess a source file
+CreateNewGame.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/CreateNewGame.c.i
+.PHONY : CreateNewGame.c.i
+
+CreateNewGame.s: CreateNewGame.c.s
+.PHONY : CreateNewGame.s
+
+# target to generate assembly for a file
+CreateNewGame.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/CreateNewGame.c.s
+.PHONY : CreateNewGame.c.s
+
+GameGraphic.o: GameGraphic.c.o
+.PHONY : GameGraphic.o
+
+# target to build an object file
+GameGraphic.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/GameGraphic.c.o
+.PHONY : GameGraphic.c.o
+
+GameGraphic.i: GameGraphic.c.i
+.PHONY : GameGraphic.i
+
+# target to preprocess a source file
+GameGraphic.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/GameGraphic.c.i
+.PHONY : GameGraphic.c.i
+
+GameGraphic.s: GameGraphic.c.s
+.PHONY : GameGraphic.s
+
+# target to generate assembly for a file
+GameGraphic.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/GameGraphic.c.s
+.PHONY : GameGraphic.c.s
+
+Logic.o: Logic.c.o
+.PHONY : Logic.o
+
+# target to build an object file
+Logic.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/Logic.c.o
+.PHONY : Logic.c.o
+
+Logic.i: Logic.c.i
+.PHONY : Logic.i
+
+# target to preprocess a source file
+Logic.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/Logic.c.i
+.PHONY : Logic.c.i
+
+Logic.s: Logic.c.s
+.PHONY : Logic.s
+
+# target to generate assembly for a file
+Logic.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/Logic.c.s
+.PHONY : Logic.c.s
+
+MenuPage.o: MenuPage.c.o
+.PHONY : MenuPage.o
+
+# target to build an object file
+MenuPage.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/MenuPage.c.o
+.PHONY : MenuPage.c.o
+
+MenuPage.i: MenuPage.c.i
+.PHONY : MenuPage.i
+
+# target to preprocess a source file
+MenuPage.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/MenuPage.c.i
+.PHONY : MenuPage.c.i
+
+MenuPage.s: MenuPage.c.s
+.PHONY : MenuPage.s
+
+# target to generate assembly for a file
+MenuPage.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/MenuPage.c.s
+.PHONY : MenuPage.c.s
+
+NameAndInit.o: NameAndInit.c.o
+.PHONY : NameAndInit.o
+
+# target to build an object file
+NameAndInit.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/NameAndInit.c.o
+.PHONY : NameAndInit.c.o
+
+NameAndInit.i: NameAndInit.c.i
+.PHONY : NameAndInit.i
+
+# target to preprocess a source file
+NameAndInit.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/NameAndInit.c.i
+.PHONY : NameAndInit.c.i
+
+NameAndInit.s: NameAndInit.c.s
+.PHONY : NameAndInit.s
+
+# target to generate assembly for a file
+NameAndInit.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/NameAndInit.c.s
+.PHONY : NameAndInit.c.s
+
+PotionLogic.o: PotionLogic.c.o
+.PHONY : PotionLogic.o
+
+# target to build an object file
+PotionLogic.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/PotionLogic.c.o
+.PHONY : PotionLogic.c.o
+
+PotionLogic.i: PotionLogic.c.i
+.PHONY : PotionLogic.i
+
+# target to preprocess a source file
+PotionLogic.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/PotionLogic.c.i
+.PHONY : PotionLogic.c.i
+
+PotionLogic.s: PotionLogic.c.s
+.PHONY : PotionLogic.s
+
+# target to generate assembly for a file
+PotionLogic.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/PotionLogic.c.s
+.PHONY : PotionLogic.c.s
+
+SoldierLogic.o: SoldierLogic.c.o
+.PHONY : SoldierLogic.o
+
+# target to build an object file
+SoldierLogic.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/SoldierLogic.c.o
+.PHONY : SoldierLogic.c.o
+
+SoldierLogic.i: SoldierLogic.c.i
+.PHONY : SoldierLogic.i
+
+# target to preprocess a source file
+SoldierLogic.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/SoldierLogic.c.i
+.PHONY : SoldierLogic.c.i
+
+SoldierLogic.s: SoldierLogic.c.s
+.PHONY : SoldierLogic.s
+
+# target to generate assembly for a file
+SoldierLogic.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/SoldierLogic.c.s
+.PHONY : SoldierLogic.c.s
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -184,6 +352,27 @@ help:
 	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... FOP_Project"
+	@echo "... CreateNewGame.o"
+	@echo "... CreateNewGame.i"
+	@echo "... CreateNewGame.s"
+	@echo "... GameGraphic.o"
+	@echo "... GameGraphic.i"
+	@echo "... GameGraphic.s"
+	@echo "... Logic.o"
+	@echo "... Logic.i"
+	@echo "... Logic.s"
+	@echo "... MenuPage.o"
+	@echo "... MenuPage.i"
+	@echo "... MenuPage.s"
+	@echo "... NameAndInit.o"
+	@echo "... NameAndInit.i"
+	@echo "... NameAndInit.s"
+	@echo "... PotionLogic.o"
+	@echo "... PotionLogic.i"
+	@echo "... PotionLogic.s"
+	@echo "... SoldierLogic.o"
+	@echo "... SoldierLogic.i"
+	@echo "... SoldierLogic.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

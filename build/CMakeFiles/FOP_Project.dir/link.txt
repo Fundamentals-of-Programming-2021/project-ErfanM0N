@@ -1,1 +1,1 @@
-/bin/x86_64-linux-gnu-gcc-9 -g -rdynamic CMakeFiles/FOP_Project.dir/main.c.o -o FOP_Project  -lm -lSDL2 -lSDL2_gfx -lSDL2_image -lSDL2_ttf 
+/bin/x86_64-linux-gnu-gcc-9 -g -rdynamic CMakeFiles/FOP_Project.dir/main.c.o CMakeFiles/FOP_Project.dir/NameAndInit.c.o CMakeFiles/FOP_Project.dir/MenuPage.c.o CMakeFiles/FOP_Project.dir/CreateNewGame.c.o CMakeFiles/FOP_Project.dir/GameGraphic.c.o CMakeFiles/FOP_Project.dir/Logic.c.o CMakeFiles/FOP_Project.dir/SoldierLogic.c.o CMakeFiles/FOP_Project.dir/PotionLogic.c.o -o FOP_Project  -lm -lSDL2 -lSDL2_gfx -lSDL2_image -lSDL2_ttf 

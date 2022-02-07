@@ -3,5 +3,40 @@
   "directory": "/home/usr/Desktop/FOP_Project/build",
   "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/main.c.o -c /home/usr/Desktop/FOP_Project/main.c",
   "file": "/home/usr/Desktop/FOP_Project/main.c"
+},
+{
+  "directory": "/home/usr/Desktop/FOP_Project/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/NameAndInit.c.o -c /home/usr/Desktop/FOP_Project/NameAndInit.c",
+  "file": "/home/usr/Desktop/FOP_Project/NameAndInit.c"
+},
+{
+  "directory": "/home/usr/Desktop/FOP_Project/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/MenuPage.c.o -c /home/usr/Desktop/FOP_Project/MenuPage.c",
+  "file": "/home/usr/Desktop/FOP_Project/MenuPage.c"
+},
+{
+  "directory": "/home/usr/Desktop/FOP_Project/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/CreateNewGame.c.o -c /home/usr/Desktop/FOP_Project/CreateNewGame.c",
+  "file": "/home/usr/Desktop/FOP_Project/CreateNewGame.c"
+},
+{
+  "directory": "/home/usr/Desktop/FOP_Project/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/GameGraphic.c.o -c /home/usr/Desktop/FOP_Project/GameGraphic.c",
+  "file": "/home/usr/Desktop/FOP_Project/GameGraphic.c"
+},
+{
+  "directory": "/home/usr/Desktop/FOP_Project/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/Logic.c.o -c /home/usr/Desktop/FOP_Project/Logic.c",
+  "file": "/home/usr/Desktop/FOP_Project/Logic.c"
+},
+{
+  "directory": "/home/usr/Desktop/FOP_Project/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/SoldierLogic.c.o -c /home/usr/Desktop/FOP_Project/SoldierLogic.c",
+  "file": "/home/usr/Desktop/FOP_Project/SoldierLogic.c"
+},
+{
+  "directory": "/home/usr/Desktop/FOP_Project/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/PotionLogic.c.o -c /home/usr/Desktop/FOP_Project/PotionLogic.c",
+  "file": "/home/usr/Desktop/FOP_Project/PotionLogic.c"
 }
 ]

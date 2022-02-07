@@ -1,4 +1,4 @@
-CMakeFiles/FOP_Project.dir/main.c.o: /home/usr/Desktop/FOP_Project/main.c \
+CMakeFiles/FOP_Project.dir/name.c.o: /home/usr/Desktop/FOP_Project/name.c \
  /usr/include/stdc-predef.h /usr/include/SDL2/SDL.h \
  /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
  /usr/include/SDL2/SDL_config.h \
@@ -151,6 +151,6 @@ CMakeFiles/FOP_Project.dir/main.c.o: /home/usr/Desktop/FOP_Project/main.c \
  /usr/include/SDL2/SDL_shape.h /usr/include/SDL2/SDL_system.h \
  /usr/include/SDL2/SDL_timer.h /usr/include/SDL2/SDL_version.h \
  /usr/include/SDL2/SDL2_gfxPrimitives.h /usr/include/SDL2/SDL.h \
- /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL_ttf.h \
- /home/usr/Desktop/FOP_Project/Functions.h \
- /home/usr/Desktop/FOP_Project/Structs.h
+ /usr/include/SDL2/SDL_ttf.h \
+ /home/usr/Desktop/FOP_Project/StructsAndGlobalS.h \
+ /home/usr/Desktop/FOP_Project/Functions.h
