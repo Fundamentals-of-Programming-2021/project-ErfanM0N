@@ -55,18 +55,12 @@ void SmartAttack(sol *Soldier,int p , play Player[p],int t , state object[t]){
             }
         }
 
-        if (object[j].ReadySoldier > y1 + 20)
+        if (object[j].ReadySoldier > y1 + 20 || object[j].ReadySoldier > 99)
         {
             CreateSoldier(object[j],object[y2],Soldier,p,Player,j,y2);
             object[j].ReadySoldier = 0 ;
         }
 
-        else if (Player[0].Amount_of_state == 0 && object[j].ReadySoldier > y1 - 15)
-        {
-            CreateSoldier(object[j],object[y2],Soldier,p,Player,j,y2);
-            object[j].ReadySoldier = 0 ;
-        }
-        
         
     }
      
@@ -195,7 +189,8 @@ void RenderStates(SDL_Renderer *Renderer,int t ,state object[t]){
 
 }
 
-int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Rect FullPic,int t ,state object[t],int p ,play Player[p]){
+int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Rect FullPic,int t ,state object[t],int p ,play Player[p]
+,int n0,PlayerName N[n0+1],int number){
     
     SDL_Texture *TextureSol = IMG_LoadTexture(Renderer, "../IMG/SoldierIcon.png");
     
@@ -219,10 +214,7 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
     
 
     int x = 0 ;
-
-    
-    int x2 = 0 ;
-    int x3 = 0 ;
+    int x1 = 0;
 
 
     SDL_Event sdlEvent;
@@ -285,16 +277,17 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
 
         SDL_RenderPresent(Renderer);
 
-        //if (Player[1].score == 0)
-        //{
-        //    x3++ ;
-        //}
+
+        if ((Player[1].score == 0 || (Player[2].score == 0 && Player[3].score == 0 && Player[4].score == 0)) && x1 <= FPS/5)
+        {
+            x1++ ;
+        }
         
-        //if (x3 == 15)
-        //{
-        //    WinOrLost(p,Player);
-        //    return 0;
-        //}
+        if (x1 == FPS/5 )
+        {
+            WinOrLost(p,Player,n0,N,number);
+            return 0;
+        }
         
         
         while (SDL_PollEvent(&sdlEvent))

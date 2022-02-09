@@ -9,6 +9,8 @@
 
 extern const int FPS ;
 
+
+
 SDL_Texture* GetText(SDL_Renderer *Renderer,int size,char* Fontname,int R,int G,int B,char* str) {
     
     char string[100] = "../FONT/";
@@ -79,7 +81,7 @@ int getName(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureFirst,
 
             else if (Event.type == SDL_TEXTINPUT && text_rect.w < 680)
             {
-                if (*Event.text.text < 128 && *Event.text.text > 0)
+                if (*Event.text.text < 128 && *Event.text.text > 0 && *Event.text.text != 32)
                 {
                     strcat(name,Event.text.text);
 

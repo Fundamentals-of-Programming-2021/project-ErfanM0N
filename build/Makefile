@@ -317,6 +317,30 @@ SoldierLogic.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/SoldierLogic.c.s
 .PHONY : SoldierLogic.c.s
 
+WinOrLose.o: WinOrLose.c.o
+.PHONY : WinOrLose.o
+
+# target to build an object file
+WinOrLose.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/WinOrLose.c.o
+.PHONY : WinOrLose.c.o
+
+WinOrLose.i: WinOrLose.c.i
+.PHONY : WinOrLose.i
+
+# target to preprocess a source file
+WinOrLose.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/WinOrLose.c.i
+.PHONY : WinOrLose.c.i
+
+WinOrLose.s: WinOrLose.c.s
+.PHONY : WinOrLose.s
+
+# target to generate assembly for a file
+WinOrLose.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FOP_Project.dir/build.make CMakeFiles/FOP_Project.dir/WinOrLose.c.s
+.PHONY : WinOrLose.c.s
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -373,6 +397,9 @@ help:
 	@echo "... SoldierLogic.o"
 	@echo "... SoldierLogic.i"
 	@echo "... SoldierLogic.s"
+	@echo "... WinOrLose.o"
+	@echo "... WinOrLose.i"
+	@echo "... WinOrLose.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

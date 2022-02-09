@@ -2,6 +2,7 @@
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
+#include <time.h>
 #include "Functions.h"
 
 
@@ -82,7 +83,9 @@ void ShowPotion(SDL_Renderer *Renderer,mixture Potion[4]){
 }
 
 void AddPotion(int t ,state object[t],mixture Potion[4]){
-        
+    
+    srand(time(NULL));
+
     int a[5];
     a[0] = 0 ;
     int j = 1 ;
@@ -103,7 +106,7 @@ void AddPotion(int t ,state object[t],mixture Potion[4]){
 
     int domain = rand () % 6 + 2 ;
 
-    if (a[0] > 2 && !(x % 4))
+    if (a[0] > 2 && !(x % 5))
     {
         int P = rand () % a[0] + 1;
         P = a[P] ;

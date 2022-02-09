@@ -1,11 +1,124 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <stdio.h>
+#include <string.h>
 #include "Functions.h"
 
 
 extern int AmountOfPlayers;
+extern int FPS;
 
+void RenderPlayersScore(SDL_Renderer *Renderer,int n0,PlayerName N[n0+1],int number){
+
+    SDL_Rect rankText = {.x = 80 ,.y = 260 ,.h = 80 ,.w = 120};
+    SDL_Rect NAME = {.x = 400 ,.y = 255 ,.h = 90 ,.w = 200};
+    SDL_Rect point = {.x = 550 ,.y = 260 ,.h = 80 ,.w = 120};
+
+    for (int i = 0; i < n0; i++)
+    {
+        if (N[i].rank < 6)
+        {
+            char Rank[20],points[20];
+        
+            rankText.y = 260 ;
+            NAME.y = 255;
+            NAME.x = 400 ;
+            point.y = 260;
+
+            sprintf(Rank,"%8d",N[i].rank);
+            strcat(Rank,".");
+            SDL_Texture *TextRank = GetText(Renderer,50,"Arial.ttf",0,0,0,Rank);
+            
+            rankText.y += (105 * (N[i].rank - 1)) ;
+
+            SDL_RenderCopy(Renderer,TextRank,NULL,&rankText);
+            SDL_DestroyTexture(TextRank);
+
+
+
+            SDL_Texture *TextNAME = GetText(Renderer,50,"Arial.ttf",0,0,0,N[i].Name);
+            
+            NAME.y += (105 * (N[i].rank - 1)) ;
+            NAME.w = strlen(N[i].Name) * 30 ;
+            NAME.x -= NAME.w / 2;
+
+            SDL_RenderCopy(Renderer,TextNAME,NULL,&NAME);
+            SDL_DestroyTexture(TextNAME);
+
+
+            sprintf(points,"%8d",N[i].Score);
+            SDL_Texture *TextPoint = GetText(Renderer,50,"Arial.ttf",0,0,0,points);
+            
+            point.y += (105 * (N[i].rank - 1)) ;
+
+            SDL_RenderCopy(Renderer,TextPoint,NULL,&point);
+            SDL_DestroyTexture(TextPoint);
+            
+
+        
+            thickLineRGBA(Renderer,120,rankText.y + 90 ,720,rankText.y + 90,5,0,0,0,255);
+
+        }
+        
+    }
+    
+
+}
+
+int ScoreBoard(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureScoreBoard,SDL_Rect FullPic,SDL_Texture *TextureBack,SDL_Rect Back
+,int n0,PlayerName N[n0+1],int number){
+
+    SDL_Rect ScoreBoard = {.x = 120 ,.y = 100 ,.h = 670 ,.w = 600};
+    SDL_Rect LeaderBoardText = {.x = 160 ,.y = 120 ,.h = 120 ,.w = 520};
+
+    SDL_Texture *TextBoard = GetText(Renderer,100,"Arial.ttf",0,0,0,"LEADERBOARD");
+
+    SDL_Event sdlEvent;
+    SDL_bool Exit = SDL_FALSE;
+
+    while (Exit == SDL_FALSE) 
+    {
+        SDL_SetRenderDrawColor(Renderer, 0 , 0 , 0 , 255);
+        SDL_RenderClear(Renderer);
+
+        SDL_RenderCopy(Renderer, TextureScoreBoard, NULL, &FullPic);
+        SDL_RenderCopy(Renderer, TextureBack, NULL, &Back);
+
+        Render_border(Renderer,ScoreBoard,5);
+        SDL_RenderCopy(Renderer, TextBoard, NULL, &LeaderBoardText);
+        thickLineRGBA(Renderer,120,250,720,250,5,0,0,0,255);
+
+        RenderPlayersScore(Renderer,n0,N,number);
+
+        SDL_RenderPresent(Renderer);
+        
+
+        while (SDL_PollEvent(&sdlEvent))
+        {
+
+            if (sdlEvent.type == SDL_QUIT)
+            {
+                Exit = SDL_TRUE;
+                return 0 ;
+            }
+
+            
+            else if (sdlEvent.type == SDL_MOUSEBUTTONDOWN)
+            {
+
+                if (sdlEvent.button.x >= 10 && sdlEvent.button.x <= 10 + 100 && sdlEvent.button.y >= 10 && sdlEvent.button.y <= 10 + 70)
+                {
+                    return -1 ;
+                }
+            
+            }
+        }    
+                
+        SDL_Delay(1000 / FPS);
+    }
+
+
+}
 
 int Isequal(play x,play y){
     if (x.R == y.R && x.G == y.G && x.B == y.B)

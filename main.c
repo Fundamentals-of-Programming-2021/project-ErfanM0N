@@ -3,14 +3,15 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
+#include <string.h>
 #include "Functions.h"
 #include "Structs.h"
-#include <math.h>
 
 
 const int SCREEN_WIDTH = 1270;
 const int SCREEN_HEIGHT = 850;
 const int FPS = 60;
+int AmountOfPlayers;
 
 
 
@@ -42,6 +43,30 @@ int main() {
 
     
     int i = 0;
+
+    int j = 0;
+    int j1 = 0;
+    int j2 = 0;
+    int j3 = 0;
+
+    int number = -1;
+
+    int n0 ;
+
+    FILE* fp = fopen("ScoreBoard.txt","r");
+
+    fscanf(fp,"%d",&n0);
+
+    PlayerName N[n0+1];
+
+    for (int i = 0; i < n0; i++)
+    {
+        fscanf(fp,"%s %d %d",N[i].Name,&N[i].rank,&N[i].Score);
+    }
+
+    fclose(fp);
+
+
     
     while (1)
     {
@@ -57,9 +82,6 @@ int main() {
             i++;
         }
         
-
-
-        int j = 0;
 
         if (i < 2)
         {
@@ -89,16 +111,15 @@ int main() {
 
         }
 
-        
-        int j1 = 0;
 
 
         if (i < 3)
         {
-            if (j > 0)
+            if (j == 1 || j == 2)
             {
                 SDL_Texture *TextureGameFirstPage = IMG_LoadTexture(Renderer, "../IMG/GameFirstPage.jpg");
                 SDL_Texture *TextureBack = IMG_LoadTexture(Renderer, "../IMG/Back.png");
+
 
                 j1 = StartGame(Window,Renderer,TextureGameFirstPage,FullPic,TextureBack,Back) ;
         
@@ -122,38 +143,98 @@ int main() {
                 }
             }
 
-            //else
-            //{
-            //    break;
-            //}
+            else
+            {
+                SDL_Texture *TextureScoreBoard = IMG_LoadTexture(Renderer, "../IMG/ScoreBoard.jpg");
+                SDL_Texture *TextureBack = IMG_LoadTexture(Renderer, "../IMG/Back.png");
+
+                j1 = ScoreBoard(Window,Renderer,TextureScoreBoard,FullPic,TextureBack,Back,n0,N,number) ;
+        
+                SDL_DestroyTexture(TextureScoreBoard);
+                SDL_DestroyTexture(TextureBack);
+
+                if (j1 == -1)
+                {
+                    i--;
+                    continue;
+                }
+
+                else if (j1 == 0)
+                {
+                    break;
+                }
+
+            }
             
 
         }
 
 
-        int j2 = 0 ;
-
-
         if (i < 4)
         {
+
+            int p = 5;
+            play Player[p];
+            CreatePlayer(Renderer,p,Player);
+
+            int t = 10 ;
+            state object[t];
+
+            
+
             if (j1 == 1)
             {
+
+                for (int i = 0; i < n0; i++)
+                {
+                    if (!(strcmp(name,N[i].Name)) )
+                    {
+                        number = i ;
+                        break;
+                    }
+                    
+                }
+
+                if (number == -1)
+                {
+                    number = n0 ;
+                    strcpy(N[n0].Name,name);
+                    N[n0].Score = 0;
+                    N[n0].rank = n0 + 1 ;
+                }
+                
+
                 SDL_Texture *TextureBG = IMG_LoadTexture(Renderer, "../IMG/GameBG.jpg");
                 SDL_Texture *TextureBack = IMG_LoadTexture(Renderer, "../IMG/Back.png");
 
-                int t = 10 ;
-                state object[t];
-                CreateState(Renderer,t,object);
-
-                int p = 5;
-                play Player[p];
-                CreatePlayer(Renderer,p,Player);
-                SetStateOwner(t,object,p,Player);
+                if (j3 == 0)
+                {
+                    CreateState(Renderer,t,object);
+            
+                    SetStateOwner(t,object,p,Player);
                 
+                }
 
-                j2 = Game(Window,Renderer,TextureBG,FullPic,t,object,p,Player) ;
+
+                j2 = Game(Window,Renderer,TextureBG,FullPic,t,object,p,Player,n0,N,number) ;
+
         
                 SDL_DestroyTexture(TextureBG);
+                SDL_DestroyTexture(TextureBack);
+
+                break;
+            }
+
+
+
+            else
+            {
+                SDL_Texture *TextureMap = IMG_LoadTexture(Renderer, "../IMG/ChooseMap.jpg");
+                SDL_Texture *TextureBack = IMG_LoadTexture(Renderer, "../IMG/Back.png");
+
+                j2 = ChooseM(Window,Renderer,TextureMap,FullPic,TextureBack,Back) ;
+        
+                SDL_DestroyTexture(TextureMap);
                 SDL_DestroyTexture(TextureBack);
 
                 if (j2 == -1)
@@ -167,37 +248,76 @@ int main() {
                     break;
                 }
 
-                else
+                else if (j2 == 1)
                 {
-                    i++;
-                    break;
-                }
-            }
+                    FILE* fp = fopen("MAPS/MAP1.txt","r");
 
-            else
-            {
-                break;
+                    ReadMap(fp,t,object,p,Player);
+
+                    fclose(fp);
+
+                    j3 = 1 ;
+                    j1 = 1 ;
+            
+                }
+
+                else if (j2 == 2)
+                {
+                    FILE* fp = fopen("MAPS/MAP2.txt","r");
+
+                    ReadMap(fp,t,object,p,Player);
+
+                    fclose(fp);
+
+                    j3 = 1 ;
+                    j1 = 1 ;
+            
+                }
+
+                else if (j2 == 3)
+                {
+                    FILE* fp = fopen("MAPS/MAP3.txt","r");
+
+                    ReadMap(fp,t,object,p,Player);
+
+                    fclose(fp);
+
+                    j3 = 1 ;
+                    j1 = 1 ;
+            
+                }
+
+                else if (j2 == 4)
+                {
+                    FILE* fp = fopen("MAPS/MAP4.txt","r");
+
+                    ReadMap(fp,t,object,p,Player);
+
+                    fclose(fp);
+
+                    j3 = 1 ;
+                    j1 = 1 ;
+            
+                }
+
+                else if (j2 == 5)
+                {
+                    FILE* fp = fopen("MAPS/MAP5.txt","r");
+
+                    ReadMap(fp,t,object,p,Player);
+
+                    fclose(fp);
+
+                    j3 = 1 ;
+                    j1 = 1 ;
+            
+                }
+                
             }
             
 
         }
         
-        
-        
-        
-        
-        
-    
-
-
-        //SDL_Texture *TextureBG = IMG_LoadTexture(Renderer, "../IMG/GameBG.jpg");
-        //SDL_Texture *TextureGameFirstPage = IMG_LoadTexture(Renderer, "../IMG/GameFirstPage.jpg");
-
-    
-
-
-    
-
     
     }
 

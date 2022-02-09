@@ -5,12 +5,28 @@
 #include "Functions.h"
 #include "Structs.h"
 
-int AmountOfPlayers;
+extern int AmountOfPlayers;
 
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 extern const int FPS ;
 
+
+void ReadMap(FILE* fp,int t ,state object[t],int p ,play Player[p]){
+    int p0;
+    
+    for (int i = 0; i < t; i++)
+    {
+        fscanf(fp,"%d %d %d %d %d %d %d\n",&object[i].x,&object[i].y,&object[i].soldier,&object[i].ReadySoldier,&object[i].shape
+        ,&object[i].size,&p0);
+
+        object[i].owner = Player[p0];
+        Player[p0].Amount_of_state++ ;
+    }
+
+    fscanf(fp,"%d\n",&AmountOfPlayers);
+
+}
 
 int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
     
@@ -23,7 +39,7 @@ int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
         Player[i+1].Amount_of_state = 1;
     }
     
-    x = rand () % 3;
+    x =  rand () % 3;
 
     if (x == 2)
     {
@@ -53,8 +69,8 @@ int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
         {
             object[i].owner = Player[0];
             Player[0].Amount_of_state += 1;
-            object[i].soldier = 70 ;
-            object[i].ReadySoldier = 70 ;
+            object[i].soldier = 65 ;
+            object[i].ReadySoldier = 65 ;
         }
 
         AmountOfPlayers = 3;
@@ -66,8 +82,8 @@ int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
         {
             object[i].owner = Player[0];
             Player[0].Amount_of_state += 1;
-            object[i].soldier = 70 ;
-            object[i].ReadySoldier = 70 ;
+            object[i].soldier = 65 ;
+            object[i].ReadySoldier = 65 ;
         }
         
         AmountOfPlayers = 2;
@@ -139,6 +155,132 @@ void CreateState(SDL_Renderer *Renderer,int t ,state object[t]){
     
 }
 
+int ChooseM(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureMap,SDL_Rect FullPic,SDL_Texture *TextureBack,SDL_Rect Back){
+
+    SDL_Rect border[5];
+
+    border[0].x = 155 , border[0].y = 260, border[0].w = 295 ,border[0].h = 130 ;
+    border[1].x = 155 , border[1].y = 452, border[1].w = 295 ,border[1].h = 130 ;
+    border[2].x = 155 , border[2].y = 640, border[2].w = 295 ,border[2].h = 130 ;
+    border[3].x = 560 , border[3].y = 452, border[3].w = 295 ,border[3].h = 130 ;
+    border[4].x = 560 , border[4].y = 640, border[4].w = 295 ,border[4].h = 130 ;
+
+
+    SDL_Event sdlEvent;
+    SDL_bool Exit = SDL_FALSE;
+
+    static int i = 1 ;
+
+    while (Exit == SDL_FALSE) 
+    {
+        SDL_SetRenderDrawColor(Renderer, 0 , 0 , 0 , 255);
+        SDL_RenderClear(Renderer);
+
+        SDL_RenderCopy(Renderer, TextureMap, NULL, &FullPic);
+        SDL_RenderCopy(Renderer, TextureBack, NULL, &Back);
+
+        
+        Render_border(Renderer,border[0],5);
+        Render_border(Renderer,border[1],5);
+        Render_border(Renderer,border[2],5);
+        Render_border(Renderer,border[3],5);
+        Render_border(Renderer,border[4],5);
+        
+        SDL_SetRenderDrawColor(Renderer, 255, 255, 255, 255);
+        
+        Render_border(Renderer,border[i-1],5); 
+
+        SDL_RenderPresent(Renderer);
+        
+
+        while (SDL_PollEvent(&sdlEvent))
+        {
+
+            if (sdlEvent.type == SDL_QUIT)
+            {
+                Exit = SDL_TRUE;
+                return 0 ;
+            }
+
+            else if (sdlEvent.type == SDL_KEYDOWN)
+            {
+
+                if (sdlEvent.key.keysym.sym == SDLK_DOWN)
+                {
+                    i++ ;
+                    if (i == 6)
+                    {
+                        i = 1;
+                    }
+                    
+                }
+
+                else if (sdlEvent.key.keysym.sym == SDLK_UP)
+                {
+                    i--;
+                    if (i == 0)
+                    {
+                        i = 5;
+                    }
+    
+                }
+             
+                else if (sdlEvent.key.keysym.sym == SDLK_RETURN)
+                {
+                         
+                    return i;
+                    
+                }
+
+            }
+
+            else if (sdlEvent.type == SDL_MOUSEBUTTONDOWN)
+            {
+
+                if (sdlEvent.button.x >= 155 && sdlEvent.button.x <= 155 + 295 && sdlEvent.button.y >= 260 && sdlEvent.button.y <= 260 + 130)
+                {
+                    i = 1 ;
+                    return 1;
+                }
+
+                else if (sdlEvent.button.x >= 155 && sdlEvent.button.x <= 155 + 295 && sdlEvent.button.y >= 452 && sdlEvent.button.y <= 452 + 130)
+                {
+                    i = 2 ;
+                    return 2;
+                }
+
+                else if (sdlEvent.button.x >= 155 && sdlEvent.button.x <= 155 + 295 && sdlEvent.button.y >= 640 && sdlEvent.button.y <= 640 + 130)
+                {
+                    i = 3 ;
+                    return 3;
+                }
+
+                else if (sdlEvent.button.x >= 560 && sdlEvent.button.x <= 560 + 295 && sdlEvent.button.y >= 452 && sdlEvent.button.y <= 452 + 130)
+                {
+                    i = 4 ;
+                    return 4;
+                }
+
+                else if (sdlEvent.button.x >= 560 && sdlEvent.button.x <= 560 + 295 && sdlEvent.button.y >= 640 && sdlEvent.button.y <= 640 + 130)
+                {
+                    i = 5 ;
+                    return 5;
+                }
+                else if (sdlEvent.button.x >= 10 && sdlEvent.button.x <= 10 + 100 && sdlEvent.button.y >= 10 && sdlEvent.button.y <= 10 + 70)
+                {
+                    return -1 ;
+                }
+            
+
+            }
+            
+        }    
+                
+        SDL_Delay(1000 / FPS);
+    }
+
+
+}
 
 int StartGame(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureGameFirstPage,SDL_Rect FullPic,SDL_Texture *TextureBack,SDL_Rect Back){
     
@@ -217,11 +359,13 @@ int StartGame(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureGame
 
                 if (sdlEvent.button.x >= 50 && sdlEvent.button.x <= 50 + 790 && sdlEvent.button.y >= 462 && sdlEvent.button.y <= 462 + 110)
                 {
+                    i = 1;
                     return 1;
                 }
 
                 else if (sdlEvent.button.x >= 95 && sdlEvent.button.x <= 95 + 730 && sdlEvent.button.y >= 650 && sdlEvent.button.y <= 650 + 110)
                 {
+                    i = 2;
                     return 2;
                 }
 

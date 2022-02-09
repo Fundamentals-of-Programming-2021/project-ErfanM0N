@@ -1,0 +1,12 @@
+5
+Amir 
+3 120
+Erfan 
+1 200
+Arian 
+2 150
+Matin
+4 90
+Ali
+5 50
+

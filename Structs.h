@@ -1,6 +1,16 @@
 #ifndef HEADER_Structs_H
 #define HEADER_Structs_H
 
+typedef struct PlayerName
+{
+    char Name[20] ;
+    int rank ;
+    int Score ;
+
+}PlayerName;
+
+
+
 typedef struct sol{
     int R ;
     int G ;

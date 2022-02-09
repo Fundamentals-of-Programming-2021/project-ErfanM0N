@@ -3,6 +3,15 @@
 
 #include "Structs.h"
 
+void RenderPlayersScore(SDL_Renderer *Renderer,int n0,PlayerName N[n0+1],int number);
+
+int ScoreBoard(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureGameFirstPage,SDL_Rect FullPic,SDL_Texture *TextureBack,SDL_Rect Back
+,int n0,PlayerName N[n0+1],int number);
+
+int SetScore(int count);
+
+int WinOrLost(int p,play Player[p],int n0,PlayerName N[n0+1],int number);
+
 void SoldierEatPotion(mixture Potion[4],int t ,state object[t],int p ,play Player[p],sol *Soldier);
 
 void setPotionTime(mixture Potion[4],int p ,play Player[p]);
@@ -25,7 +34,14 @@ void SetAttack(SDL_Event sdlEvent,int t ,state object[t],int Source[3],int Point
 
 void RenderStates(SDL_Renderer *Renderer,int t ,state object[t]);
 
-int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Rect FullPic,int t ,state object[t],int p ,play Player[p]);
+void WriteScoreBoard(int n0,PlayerName N[n0+1],int number,int score);
+
+int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Rect FullPic,int t ,state object[t],int p ,play Player[p]
+,int n0,PlayerName N[n0+1],int number);
+
+void ReadMap(FILE* fp,int t ,state object[t],int p ,play Player[p]);
+
+int ChooseM(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureMap,SDL_Rect FullPic,SDL_Texture *TextureBack,SDL_Rect Back);
 
 int Isequal(play x,play y);
 

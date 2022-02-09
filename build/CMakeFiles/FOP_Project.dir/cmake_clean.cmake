@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/FOP_Project.dir/PotionLogic.c.o.d"
   "CMakeFiles/FOP_Project.dir/SoldierLogic.c.o"
   "CMakeFiles/FOP_Project.dir/SoldierLogic.c.o.d"
+  "CMakeFiles/FOP_Project.dir/WinOrLose.c.o"
+  "CMakeFiles/FOP_Project.dir/WinOrLose.c.o.d"
   "CMakeFiles/FOP_Project.dir/main.c.o"
   "CMakeFiles/FOP_Project.dir/main.c.o.d"
   "FOP_Project"

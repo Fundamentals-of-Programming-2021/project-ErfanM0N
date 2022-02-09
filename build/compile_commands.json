@@ -38,5 +38,10 @@
   "directory": "/home/usr/Desktop/FOP_Project/build",
   "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/PotionLogic.c.o -c /home/usr/Desktop/FOP_Project/PotionLogic.c",
   "file": "/home/usr/Desktop/FOP_Project/PotionLogic.c"
+},
+{
+  "directory": "/home/usr/Desktop/FOP_Project/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -g -std=gnu11 -o CMakeFiles/FOP_Project.dir/WinOrLose.c.o -c /home/usr/Desktop/FOP_Project/WinOrLose.c",
+  "file": "/home/usr/Desktop/FOP_Project/WinOrLose.c"
 }
 ]
