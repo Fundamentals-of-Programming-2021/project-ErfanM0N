@@ -51,7 +51,9 @@ int main() {
 
     int number = -1;
 
+
     int n0 ;
+
 
     FILE* fp = fopen("ScoreBoard.txt","r");
 
@@ -67,7 +69,16 @@ int main() {
     fclose(fp);
 
 
+
+    int p = 5;
+    play Player[p];
+    CreatePlayer(Renderer,p,Player);
+
+    int t = 10 ;
+    state object[t];
     
+
+
     while (1)
     {
         if (i < 1)
@@ -172,15 +183,6 @@ int main() {
 
         if (i < 4)
         {
-
-            int p = 5;
-            play Player[p];
-            CreatePlayer(Renderer,p,Player);
-
-            int t = 10 ;
-            state object[t];
-
-            
 
             if (j1 == 1)
             {

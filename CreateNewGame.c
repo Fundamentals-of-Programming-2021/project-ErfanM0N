@@ -13,18 +13,19 @@ extern const int FPS ;
 
 
 void ReadMap(FILE* fp,int t ,state object[t],int p ,play Player[p]){
-    int p0;
+    int q = -1;
     
     for (int i = 0; i < t; i++)
     {
-        fscanf(fp,"%d %d %d %d %d %d %d\n",&object[i].x,&object[i].y,&object[i].soldier,&object[i].ReadySoldier,&object[i].shape
-        ,&object[i].size,&p0);
+        fscanf(fp,"%d %d %d %d %d %d %d",&object[i].x,&object[i].y,&object[i].soldier,&object[i].ReadySoldier,&object[i].shape
+        ,&object[i].size,&q);
 
-        object[i].owner = Player[p0];
-        Player[p0].Amount_of_state++ ;
+        object[i].owner = Player[q];
+        Player[q].Amount_of_state++ ;
     }
 
     fscanf(fp,"%d\n",&AmountOfPlayers);
+    
 
 }
 
