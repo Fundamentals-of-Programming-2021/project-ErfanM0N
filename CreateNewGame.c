@@ -96,66 +96,19 @@ void ReadMap(FILE* fp,int t ,state object[t],int p ,play Player[p]){
 }
 
 int SetStateOwner(int t ,state object[t],int p ,play Player[p]){
-    
-    srand(time(NULL));
-    int x ;
-    
-    for (int i = 0; i < 2; i++)
+
+    AmountOfPlayers = 2 ;
+
+    object[0].owner = Player[2];
+    Player[2].Amount_of_state = 1;
+
+    for (int i = 1; i < t; i++)
     {
-        object[i].owner = Player[i+1];
-        Player[i+1].Amount_of_state = 1;
+        object[i].owner = Player[1];
+        Player[1].Amount_of_state++;
     }
     
-    x =  rand () % 3;
-
-    if (x == 2)
-    {
-        object[2].owner = Player[3];
-        Player[3].Amount_of_state = 1;
-
-        object[3].owner = Player[4];
-        Player[4].Amount_of_state = 1;
-
-        for (int i = 4; i < t; i++)
-        {
-            object[i].owner = Player[0];
-            Player[0].Amount_of_state += 1;
-            object[i].soldier = 65 ;
-            object[i].ReadySoldier = 65 ;
-        }
-
-        AmountOfPlayers = 4;
-    }
-
-    else if (x == 1)
-    {
-        object[2].owner = Player[3];
-        Player[3].Amount_of_state = 1;
-
-        for (int i = 3; i < t; i++)
-        {
-            object[i].owner = Player[0];
-            Player[0].Amount_of_state += 1;
-            object[i].soldier = 65 ;
-            object[i].ReadySoldier = 65 ;
-        }
-
-        AmountOfPlayers = 3;
-    }
-
-    else
-    {
-        for (int i = 2; i < t; i++)
-        {
-            object[i].owner = Player[0];
-            Player[0].Amount_of_state += 1;
-            object[i].soldier = 65 ;
-            object[i].ReadySoldier = 65 ;
-        }
-        
-        AmountOfPlayers = 2;
-    }
-      
+    
 }
 
 

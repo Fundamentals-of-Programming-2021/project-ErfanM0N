@@ -74,7 +74,7 @@ int main() {
     play Player[p];
     CreatePlayer(Renderer,p,Player);
 
-    int t = 10 ;
+    int t = 12 ;
     state object[t];
     
 
