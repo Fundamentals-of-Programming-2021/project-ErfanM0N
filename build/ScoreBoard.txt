@@ -1,11 +1,17 @@
-5
+8
 Amir 
 2 170
 Erfan 
-1 250
+1 180
 Arian 
 3 150
 Matin 
 4 90
 Ali 
-5 10
+6 10
+Ghazal 
+7 0
+reza 
+5 50
+e 
+8 -50

@@ -104,6 +104,7 @@ int main() {
             SDL_DestroyTexture(TextureMenu);
             SDL_DestroyTexture(TextureBack);
 
+
             if (j == -1)
             {
                 i--;
@@ -126,7 +127,7 @@ int main() {
 
         if (i < 3)
         {
-            if (j == 1 || j == 2)
+            if (j == 1)
             {
                 SDL_Texture *TextureGameFirstPage = IMG_LoadTexture(Renderer, "../IMG/GameFirstPage.jpg");
                 SDL_Texture *TextureBack = IMG_LoadTexture(Renderer, "../IMG/Back.png");
@@ -153,6 +154,14 @@ int main() {
                     i++;
                 }
             }
+
+            else if (j == 2)
+            {
+                i++;
+                j3 = 2;
+                j1 = 1 ;
+            }
+            
 
             else
             {
@@ -217,10 +226,17 @@ int main() {
                 
                 }
 
+                if (j3 == 2)
+                {
+                    j2 = Game(Window,Renderer,TextureBG,FullPic,t,object,p,Player,n0,N,number,1) ;
+                }
 
-                j2 = Game(Window,Renderer,TextureBG,FullPic,t,object,p,Player,n0,N,number) ;
+                else
+                {
+                    j2 = Game(Window,Renderer,TextureBG,FullPic,t,object,p,Player,n0,N,number,0) ;
+                }
+                
 
-        
                 SDL_DestroyTexture(TextureBG);
                 SDL_DestroyTexture(TextureBack);
 

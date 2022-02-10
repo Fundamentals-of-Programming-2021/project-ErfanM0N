@@ -122,11 +122,6 @@ void AddPotion(int t ,state object[t],mixture Potion[4]){
 
 void initPotion(SDL_Renderer *Renderer,mixture Potion[4]){
     
-    for (int i = 0; i < 4; i++)
-    {
-        Potion[i].active = -1 ;
-    }
-
     Potion[0].PotionPic = IMG_LoadTexture(Renderer, "../IMG/potion1.png");
     Potion[1].PotionPic = IMG_LoadTexture(Renderer, "../IMG/potion2.png");
     Potion[2].PotionPic = IMG_LoadTexture(Renderer, "../IMG/potion3.png");

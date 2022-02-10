@@ -74,6 +74,7 @@ int getName(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureFirst,
                 Exit = SDL_TRUE;
 
                 SDL_DestroyTexture(TextH);
+                SDL_DestroyTexture(TextName);
                 SDL_StopTextInput();
     
                 return 0 ;
@@ -95,6 +96,7 @@ int getName(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureFirst,
             else if (Event.type == SDL_KEYDOWN && Event.key.keysym.sym == SDLK_RETURN && name[0] != '\0')
             {
                 SDL_DestroyTexture(TextH);
+                SDL_DestroyTexture(TextName);
                 SDL_StopTextInput();
     
                 return 1;

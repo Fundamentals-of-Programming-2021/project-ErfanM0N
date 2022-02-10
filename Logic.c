@@ -190,7 +190,7 @@ void RenderStates(SDL_Renderer *Renderer,int t ,state object[t]){
 }
 
 int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Rect FullPic,int t ,state object[t],int p ,play Player[p]
-,int n0,PlayerName N[n0+1],int number){
+,int n0,PlayerName N[n0+1],int number,int condition){
     
     SDL_Texture *TextureSol = IMG_LoadTexture(Renderer, "../IMG/SoldierIcon.png");
     
@@ -198,15 +198,32 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
 
 
     sol *Soldier = (sol*)malloc(sizeof(sol) * 1000) ;
-    
-    for (int i = 0; i < 1000; i++)
-    {
-        Soldier[i].active = -1 ;
-    }
-
 
     mixture Potion[4];
+
+    if (condition == 0)
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            Soldier[i].active = -1 ;
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            Potion[i].active = -1 ;
+        }
+
+    }
+
+    else
+    {
+        ReadFromSavedMap(t,object,p,Player,Soldier,Potion);
+    }
+
     initPotion(Renderer,Potion);
+    
+    
+    
     
     
     int Source[3] = {-1,0,0};
@@ -216,6 +233,10 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
     int x = 0 ;
     int x1 = 0;
 
+    SDL_Rect BorderSaveAndExit = {.x = 1080 , .y = 5 ,.w = 180 , .h = 40 };
+
+    SDL_Rect SaveAndExit = {.x = 1090 , .y = 5 ,.w = 160 , .h = 40 };
+    SDL_Texture *TextSave = GetText(Renderer,45,"Arial.ttf",0,0,30,"Save And Exit");
 
     SDL_Event sdlEvent;
     SDL_bool Exit = SDL_FALSE;
@@ -275,6 +296,11 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
 
         SoldierEatPotion(Potion,t,object,p,Player,Soldier);
 
+        SDL_SetRenderDrawColor(Renderer, 0 , 0 , 0 , 255);
+        Render_border(Renderer,BorderSaveAndExit,2);
+
+        SDL_RenderCopy(Renderer, TextSave, NULL, &SaveAndExit);
+
         SDL_RenderPresent(Renderer);
 
 
@@ -300,7 +326,18 @@ int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Re
 
             else if (sdlEvent.type == SDL_MOUSEBUTTONDOWN)
             {
-                SetAttack(sdlEvent,t,object,Source,Point,p,Player,Soldier);
+                if (sdlEvent.button.x >= 1080 && sdlEvent.button.x <= 1080 + 180 && sdlEvent.button.y >= 5 && sdlEvent.button.y <= 5 + 45)
+                {
+                    WriteMaptoSave(t,object,p,Player,Soldier,Potion);
+                    SDL_DestroyTexture(TextSave);
+                    return 0 ;
+                }
+
+                else
+                {
+                    SetAttack(sdlEvent,t,object,Source,Point,p,Player,Soldier);
+                }
+                
             }
 
             if (sdlEvent.type == SDL_MOUSEMOTION && Source[0] > -1)

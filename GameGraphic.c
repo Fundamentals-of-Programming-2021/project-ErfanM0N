@@ -99,6 +99,7 @@ int ScoreBoard(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureSco
             if (sdlEvent.type == SDL_QUIT)
             {
                 Exit = SDL_TRUE;
+                SDL_DestroyTexture(TextBoard);
                 return 0 ;
             }
 
@@ -108,6 +109,7 @@ int ScoreBoard(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureSco
 
                 if (sdlEvent.button.x >= 10 && sdlEvent.button.x <= 10 + 100 && sdlEvent.button.y >= 10 && sdlEvent.button.y <= 10 + 70)
                 {
+                    SDL_DestroyTexture(TextBoard);
                     return -1 ;
                 }
             

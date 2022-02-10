@@ -3,6 +3,10 @@
 
 #include "Structs.h"
 
+void ReadFromSavedMap(int t ,state object[t],int p ,play Player[p],sol *Soldier,mixture Potion[4]);
+
+void WriteMaptoSave(int t ,state object[t],int p ,play Player[p],sol *Soldier,mixture Potion[4]);
+
 void RenderPlayersScore(SDL_Renderer *Renderer,int n0,PlayerName N[n0+1],int number);
 
 int ScoreBoard(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureGameFirstPage,SDL_Rect FullPic,SDL_Texture *TextureBack,SDL_Rect Back
@@ -37,7 +41,7 @@ void RenderStates(SDL_Renderer *Renderer,int t ,state object[t]);
 void WriteScoreBoard(int n0,PlayerName N[n0+1],int number,int score);
 
 int Game(SDL_Window *Window,SDL_Renderer *Renderer,SDL_Texture *TextureBG,SDL_Rect FullPic,int t ,state object[t],int p ,play Player[p]
-,int n0,PlayerName N[n0+1],int number);
+,int n0,PlayerName N[n0+1],int number,int condition);
 
 void ReadMap(FILE* fp,int t ,state object[t],int p ,play Player[p]);
 

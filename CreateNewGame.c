@@ -12,6 +12,72 @@ extern const int SCREEN_HEIGHT;
 extern const int FPS ;
 
 
+void ReadFromSavedMap(int t ,state object[t],int p ,play Player[p],sol *Soldier,mixture Potion[4]){
+    int q = 0;
+    FILE* fp = fopen("MAPS/Saved.txt","r");
+
+    for (int i = 0; i < t; i++)
+    {
+        fscanf(fp,"%d %d %d %d %d %d %d",&object[i].x,&object[i].y,&object[i].soldier,&object[i].ReadySoldier,&object[i].shape
+        ,&object[i].size,&q);
+
+        object[i].owner = Player[q];
+    }
+
+    for (int i = 0; i < p; i++)
+    {
+        fscanf(fp,"%d %d %d %d %d %d %d %d %d",&Player[i].R,&Player[i].G,&Player[i].B,&Player[i].score,&Player[i].Amount_of_state,&Player[i].rank
+        ,&Player[i].SoldierOnSurface,&Player[i].Potion,&Player[i].PotionActiveTime);
+    }
+
+    for (int i = 0; i < 1000; i++)
+    {
+        fscanf(fp,"%d %d %d %f %f %f %f %f %f %d %d %d %d",&Soldier[i].R,&Soldier[i].G,&Soldier[i].B,&Soldier[i].x,&Soldier[i].y,&Soldier[i].x1,
+        &Soldier[i].y1,&Soldier[i].dx,&Soldier[i].dy,&Soldier[i].active,&Soldier[i].owner,&Soldier[i].Playerowner,&Soldier[i].dest);
+    }
+    
+    for (int i = 0; i < 4; i++)
+    {
+        fscanf(fp,"%d %d %d %d",&Potion[i].x,&Potion[i].y,&Potion[i].active,&Potion[i].activeTime);
+    }
+
+    fscanf(fp,"%d\n",&AmountOfPlayers);
+}
+
+
+void WriteMaptoSave(int t ,state object[t],int p ,play Player[p],sol *Soldier,mixture Potion[4]){
+    FILE* fp = fopen("MAPS/Saved.txt","w");
+
+    for (int i = 0; i < t; i++)
+    {
+        fprintf(fp,"%d %d %d %d %d %d %d\n",object[i].x,object[i].y,object[i].soldier,object[i].ReadySoldier,object[i].shape
+        ,object[i].size,getOwner(p,Player,object[i]));
+    }
+
+    for (int i = 0; i < p; i++)
+    {
+        fprintf(fp,"%d %d %d %d %d %d %d %d %d\n",Player[i].R,Player[i].G,Player[i].B,Player[i].score,Player[i].Amount_of_state,Player[i].rank
+        ,Player[i].SoldierOnSurface,Player[i].Potion,Player[i].PotionActiveTime);
+    }
+
+    for (int i = 0; i < 1000; i++)
+    {
+        fprintf(fp,"%d %d %d %f %f %f %f %f %f %d %d %d %d\n",Soldier[i].R,Soldier[i].G,Soldier[i].B,Soldier[i].x,Soldier[i].y,Soldier[i].x1,Soldier[i].y1
+        ,Soldier[i].dx,Soldier[i].dy,Soldier[i].active,Soldier[i].owner,Soldier[i].Playerowner,Soldier[i].dest);
+    }
+    
+    for (int i = 0; i < 4; i++)
+    {
+        fprintf(fp,"%d %d %d %d\n",Potion[i].x,Potion[i].y,Potion[i].active,Potion[i].time);
+    }
+
+    fprintf(fp,"%d\n",AmountOfPlayers);
+    
+               
+    fclose(fp);
+}
+
+
 void ReadMap(FILE* fp,int t ,state object[t],int p ,play Player[p]){
     int q = -1;
     
@@ -114,7 +180,7 @@ void CreateState(SDL_Renderer *Renderer,int t ,state object[t]){
 
     int a ;
     int Distance = 60 ;
-    int DistanceFromBorder = 80 ;
+    int DistanceFromBorder = 100 ;
     srand(time(NULL));
 
     for (int i = 0; i < t; i++)
